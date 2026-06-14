@@ -1,0 +1,901 @@
+\documentclass[12pt]{article} % ESTA DEVE SER A LINHA 1
+
+% --- Configuração de Pastas de Imagens ---
+\usepackage{graphicx}
+\graphicspath{
+    {imagens/}
+    {../Results/}
+    {../Results/15W\_L/}
+    {../Results/27W\_L/}
+    {../Results/45W\_L/}
+    {../Results/CHOL\_30/}
+}
+
+% --- Restante dos Pacotes ---
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{subcaption}
+\usepackage{longtable}
+\usepackage{booktabs} 
+\usepackage{amsmath}  
+\usepackage{geometry} 
+\usepackage[hidelinks]{hyperref}
+\geometry{a4paper, margin=2.5cm}
+\usepackage[numbers]{natbib} % Para citações numeradas, comum na física/química
+
+% --- Título e Autor ---
+\title{Resultados: Dinâmica Energética Molecular de Misturas Lipídicas em Membranas Biológicas utilizando Coarse Graining}
+\author{
+  Discente: Carlos Junio Alves dos Santos \\
+  Orientador: Prof. Dr. Wesley Bueno Cardoso \\
+  \vspace{0.4cm}
+  \small Instituto de Física -- Universidade Federal de Goiás
+}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Metodologia}
+
+A Dinâmica Molecular (DM) consolidou-se como uma ferramenta computacional indispensável na biofísica moderna e no desenho de materiais biológicos. O rigor desta técnica na avaliação de estabilidade estrutural, energias de interação e flutuações termodinâmicas tem sido amplamente demonstrado em estudos recentes, destacando-se na prospecção e reposicionamento de fármacos contra alvos virais complexos, como as proteases do SARS-CoV-2 \cite{cardoso2021} e as glicoproteínas de fusão do vírus Oropouche \cite{colherinhas2025}. 
+
+Embora abordagens totalmente atomísticas (All-Atom) ofereçam uma resolução química detalhada fundamental para o estudo de complexos proteína-ligante \cite{cardoso2021, colherinhas2025}, a investigação de propriedades termodinâmicas macroscópicas em membranas lipídicas (como transições de fase e metaestabilidade) exige escalas de tempo e tamanho que frequentemente superam os limites do atomístico. Desta forma, o presente trabalho adapta a robustez metodológica da análise de trajetórias de DM para o regime de simplificação molecular (\textit{Coarse Graining}), visando contornar as barreiras cinéticas inerentes à nucleação lipídica.
+
+
+\subsection{Modelo de \textit{Coarse Graining}}
+A modelagem foi conduzida utilizando campo de força Martini 3 com o mapeamento refinado \cite{pedersen2024}. Adicionalmente, os protocolos de otimização de parâmetros seguiram as metodologias de gradiente descritas recentemente na literatura \cite{ramirez2025}., empregando a biblioteca do \textit{Lipidome} proposta por Pedersen et al. (2024) \cite{pedersen2024}. No esquema de mapeamento, as caudas de 16 carbonos (DPPC) usam uma \textit{small bead}, enquanto as de 18C (DSPC) usam uma conta regular \cite{pedersen2024}.
+
+No esquema de mapeamento adotado, as caudas de 16 carbonos (DPPC) são diferenciadas das de 18 carbonos (DSPC) através do uso de uma conta pequena (\textit{small bead}) que mapeia os três átomos de carbono imediatamente após o grupo éster \cite{pedersen2024}. Em contrapartida, as caudas de 18C utilizam uma conta de tamanho regular para mapear os cinco carbonos iniciais da cadeia \cite{pedersen2024}. Além disso, os grupos éster são mapeados juntamente com o carbono adjacente do glicerol em uma conta pequena do tipo SN4a \cite{pedersen2024}. Este refinamento é fundamental para a precisão dos resultados de espessura de bicamada e para a captura correta das temperaturas de transição de fase ($T_m$).
+
+s análises visuais das trajetórias de dinâmica molecular e a renderização das imagens foram realizadas utilizando o software \textit{Visual Molecular Dynamics} (VMD). Para contornar os artefatos visuais gerados pelas condições periódicas de contorno (PBC) ao longo das simulações, aplicou-se o tratamento de centralização e reconstrução das coordenadas da caixa de simulação diretamente na interface do programa.
+
+A representação gráfica dos lipídios adotou o modelo de esferas de Van der Waals (VDW), otimizando o contraste para a identificação visual da mistura de fases. Foi estabelecido o seguinte esquema de cores e texturas para diferenciar as espécies moleculares e suas respectivas regiões hidrofílicas e hidrofóbicas: os grupos polares (cabeças) do DPPC e DSPC foram representados pelas cores azul e vermelha, respectivamente, utilizando o material \textit{Gooch} para melhor sombreamento tridimensional. As caudas apolares foram coloridas em tons distintos (prata para o DPPC e cinza escuro para o DSPC) com material opaco para destacar a diferença no comprimento das cadeias acílicas. Por fim, as moléculas de colesterol foram renderizadas em amarelo opaco, permitindo a visualização clara de sua intercolação e distribuição no núcleo hidrofóbico da bicamada.
+
+\subsection{Configuração e Escala dos Sistemas Simulados}
+
+Para avaliar de forma sistemática o impacto da hidratação, da força iônica e da fração de esteróis na termodinâmica e na estrutura das misturas binárias de DPPC e DSPC, diferentes arquiteturas de membrana foram construídas. A proporção estequiométrica entre os fosfolipídios (DPPC:DSPC) foi sistematicamente variada nas frações molares de 100:0, 75:25, 50:50, 25:75 e 0:100 para todos os regimes estudados.
+
+O primeiro conjunto de simulações dedicou-se a isolar o efeito da solvatação. Foram estabelecidos regimes de baixa (15 W/L), média (27 W/L) e alta hidratação (45 W/L) em caixas de simulação contendo 200 lipídios totais, na ausência de íons explícitos. Este gradiente hídrico foi fundamental para estabelecer uma base de controle (baseline) fluida e identificar os limites de restrição do solvente no empacotamento interfacial das cadeias acílicas.
+
+O segundo conjunto de simulações investigou a modulação promovida pela intercalação do colesterol e pela blindagem dielétrica da fase aquosa. Para garantir que o efeito condensador do esterol não fosse mascarado por restrições de solvente, a proporção de moléculas de água e de lipídios foi redimensionada e otimizada (variando entre 83 e 242 lipídios totais). Sistemas de controle (sem colesterol) e misturas contendo frações crescentes do esterol (aproximadamente 3\%, 4\%, 30\% e 40\% mol) foram simulados tanto em água pura quanto em meio salino. Nos sistemas iônicos, as caixas foram neutralizadas e acrescidas de 0,15 M de NaCl, reproduzindo a força iônica de um ambiente fisiológico.
+
+A Tabela \ref{tab:composicao_sistemas} consolida a formulação exata de cada regime abordado, incluindo o número total de partículas por componente e as dimensões iniciais das caixas de simulação antes da etapa de produção.
+
+\begin{table}[htpb]
+\centering
+\caption{Detalhamento da composição molecular e dimensões dos diferentes regimes de simulação.}
+\label{tab:composicao_sistemas}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+\textbf{Sistema Simulado} & \textbf{Lipídios (DPPC+DSPC)} & \textbf{CHOL} & \textbf{Água (W)} & \textbf{Na$^+$ / Cl$^-$} & \textbf{Relação W/L} & \textbf{Tamanho Inicial da Caixa (nm$^3$)} \\ \midrule
+15W\_L (Baixa Hidratação) & 200                           & 0             & $\sim 750$        & 0 / 0                    & 15                   & (a definir)                                \\
+27W\_L (Hidratação Média) & 200                           & 0             & $\sim 5520$       & 0 / 0                    & 27                   & (a definir)                                \\
+45W\_L (Alta Hidratação)  & 200                           & 0             & 9000              & 0 / 0                    & 45                   & (a definir)                                \\
+CHOL\_0 (Sem Íons)        & 121                           & 0             & 9680              & 0 / 0                    & $\sim 80$            & (a definir)                                \\
+CHOL\_0\_salt (Com Íons)  & 240 / 242\textsuperscript{a}  & 0             & $\sim 9400$       & 112 / 112                & $\sim 40$            & (a definir)                                \\
+CHOL\_3 (Sem Íons)        & 115                           & 5             & 9600              & 0 / 0                    & $\sim 80$            & (a definir)                                \\
+CHOL\_4\_salt (Com Íons)  & 230                           & 10            & 9376              & 112 / 112                & $\sim 40$            & (a definir)                                \\
+CHOL\_30 (Sem Íons)       & 83                            & 37            & 9600              & 0 / 0                    & $\sim 80$            & (a definir)                                \\
+CHOL\_40\_salt (Com Íons) & 144                           & 96            & 9372              & 114 / 114                & $\sim 40$            & (a definir)                                \\ \bottomrule
+\end{tabular}%
+}
+\vspace{1ex}
+\small{\textit{Nota:} As simulações foram subdivididas em misturas binárias de DPPC:DSPC (100:0, 75:25, 50:50, 25:75 e 0:100). \textsuperscript{a}Variação dependente da estequiometria da mistura binária.}
+\end{table}
+
+
+\subsection{Protocolo de Equilíbrio e Refinamento}
+O protocolo de equilíbrio foi fundamentado nos parâmetros recomendados para o Martini 3 \textit{Lipidome} \cite{pedersen2024}. Adotou-se um esquema de relaxação multiestágio para garantir a estabilidade do sistema e mitigar artefatos de amostragem:
+
+\begin{enumerate}
+    \item \textbf{Minimização (EM):} Utilização do algoritmo \textit{steepest descent} para remoção de contatos estéricos iniciais.
+    \item \textbf{Equilíbrio NPT Inicial (EQ1-EQ2):} Emprego do barostato de Berendsen com acoplamento semi-isotrópico e passo de tempo ($\Delta t$) de 10 a 20 fs para estabilização da geometria da caixa.
+    \item \textbf{Equilíbrio Avançado (EQ3-EQ4):} Utilização do barostato de Parrinello-Rahman com $\Delta t = 20$ fs, visando a convergência da Área por Lipídio (APL).
+    \item \textbf{Equilíbrio Extra (EQextra):} Implementação de uma etapa adicional de equilíbrio (\texttt{eqextra.mdp}), conforme sugerido pela literatura \cite{pedersen2024}, para mitigar artefatos de amostragem em sistemas próximos à temperatura de transição.
+\end{enumerate}
+
+\subsection{Produção e Análise}
+A produção final consistiu em trajetórias de 200 ns, com controle de temperatura via termostato \textit{velocity rescaling} ($\tau_t = 1.0$ ps) e pressão via barostato de Parrinello-Rahman ($\tau_p = 12.0$ ps). Os protocolos e arquivos de configuração (.mdp) utilizados foram baseados nos modelos disponibilizados no repositório oficial do projeto no GitHub: \url{https://github.com/Martini-Force-Field-Initiative/M3-Lipid-Parameters}.
+
+As análises da Área por Lipídio (APL) foram realizadas nos 150 ns finais de cada trajetória utilizando o software \textbf{FATSLiM (0.2.2)}. O protocolo de extração considerou os centros de massa dos \textit{beads} de colina (NC3) e fosfato (PO4) como referência para a cabeça polar.
+
+\section{Resultados e Discussão}
+
+\subsection{Perfil de Transição Termotrópica}
+A Figura \ref{fig:apl_geral} apresenta a evolução da APL em função da temperatura para diferentes proporções molares de DPPC e DSPC. 
+
+% --- Instrução: Suba o arquivo grafico_APL_45W\_L.png para o Overleaf ---
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{grafico_APL_45W\_L.png}
+    \caption{Área por lipídio ($\text{\AA}^2$) em função da temperatura para o sistema 45W\_L.}
+    \label{fig:apl_geral}
+\end{figure}
+
+Observa-se que o aumento da proporção de DSPC ($C_{18}$) desloca a temperatura de transição ($T_m$) para valores mais elevados em comparação ao DPPC puro ($C_{16}$), conforme esperado devido ao maior comprimento da cadeia alquílica e consequente aumento das interações de van der Waals.
+
+\subsection{Análise de Metastabilidade no DSPC Puro}
+Um comportamento cinético notável foi observado para o sistema de DSPC puro ($0\_100$) nas temperaturas de 290K e 300K. Como demonstrado na Figura \ref{fig:estabilidade}, estas simulações permaneceram retidas em um estado de \textbf{líquido super-resfriado}.
+
+% --- Instrução: Suba o arquivo analise_estabilidade_DSPC_completa.png para o Overleaf ---
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{analise_estabilidade_DSPC_completa.png}
+    \caption{Série temporal da APL para o DSPC puro, evidenciando a barreira de nucleação.}
+    \label{fig:estabilidade}
+\end{figure}
+
+Diferente do esperado termodinamicamente para a fase gel ($L_\beta$), o sistema manteve valores de APL próximos a $61,5 \text{ \AA}^2$, referente a montagem do sistema inicial gerado pelo Gromacs. A transição efetiva para a fase gel ($45 \text{ \AA}^2$) foi observada apenas no sistema a 310K, sugerindo que o incremento da energia térmica facilitou a superação da barreira de nucleação intrínseca ao campo de força Martini 3.
+
+\section{Comparação com a Literatura}
+A Tabela 1 apresenta o comparativo entre os valores de Área por Lipídio (APL) obtidos neste trabalho e os dados experimentais de referência \cite{kucerka2011}. Para garantir a comparabilidade, foram indicadas as temperaturas ($T$) específicas de cada dado. 
+
+Esta validação é crucial, pois o artigo de Kučerka et al. (2011) estabelece parâmetros fundamentais para misturas de DPPC e DSPC, permitindo verificar se o campo de força Martini 3 \cite{pedersen2024} reproduz adequadamente a compactação da membrana observada experimentalmente.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Comparativo de APL ($\text{\AA}^2$) com referências experimentais em temperaturas específicas.}
+    \label{tab:comparativo}
+    \begin{tabular}{@{}lccccc@{}}
+        \toprule
+        & & \multicolumn{2}{c}{Referência (Exp.)} & \multicolumn{2}{c}{Este Trabalho (45W\_L)} \\ 
+        \cmidrule(lr){3-4} \cmidrule(lr){5-6}
+        Lipídio & Fase & $T$ (K) & APL ($\text{\AA}^2$) & $T$ (K) & APL ($\text{\AA}^2$) \\ \midrule
+        DPPC    & Gel ($L_\beta$)     & 293 & $47,4 \pm 0,5$ & 290 & $\sim 44,8$ \\
+        DPPC    & Fluida ($L_\alpha$) & 323 & $63,1 \pm 1,3$ & 350 & $\sim 62,5$ \\
+        DSPC    & Gel ($L_\beta$)     & 293 & $48,0 \pm 0,5$ & 310 & $\sim 45,0$ \\
+        DSPC    & Fluida ($L_\alpha$) & 338 & $65,5 \pm 1,3$ & 350 & $\sim 62,5$ \\ \bottomrule
+    \end{tabular}
+    \small \\ Nota: Para o DSPC em 290 K e 300 K, observou-se metastabilidade (líquido super-resfriado) com APL $\approx 61,5 \text{ \AA}^2$, convergindo para a fase gel estável apenas a partir de 310 K.
+\end{table}
+
+\section{Conclusões Preliminares}
+
+Os resultados obtidos para o sistema de alta hidratação (45W\_L) demonstram que o modelo Martini 3 é capaz de descrever com precisão a transição de fase principal e a estrutura das bicamadas de DPPC e DSPC. A análise comparativa permite elencar as seguintes conclusões e justificativas:
+
+\begin{itemize}
+    \item \textbf{Validação da Fase Fluida ($L_\alpha$):} Observou-se uma excelente concordância entre os valores de APL obtidos a 350 K ($\sim 63,5 \text{ \AA}^2$) e os dados experimentais de referência ($63,1 - 65,5 \text{ \AA}^2$) \cite{pedersen2024}. Esta proximidade valida a precisão do campo de força para sistemas em regime de saturação hídrica, confirmando que o novo mapeamento de caudas lipídicas reproduz adequadamente a expansão térmica da membrana.
+    
+    \item \textbf{Caracterização da Fase Gel ($L_\beta$):} A convergência da APL para valores próximos a $45,0 \text{ \AA}^2$ na fase gel representa uma ligeira subestimação em relação ao experimento ($47,4 - 48,0 \text{ \AA}^2$) \cite{pedersen2024}. No entanto, este desvio é uma característica intrínseca e documentada do Martini 3, que sacrifica uma fração da área por molécula no estado ordenado para garantir uma captura mais fiel das temperaturas de transição ($T_m$) e do comportamento cooperativo em misturas binárias \cite{pedersen2024}.
+    
+    \item \textbf{Cinética e Metastabilidade:} A identificação de estados de líquido super-resfriado para o DSPC puro a 290 K e 300 K ($\text{APL} \approx 61,5 \text{ \AA}^2$) ressalta a importância da energia térmica para a superação das barreiras de nucleação no modelo Martini 3. A transição efetiva para a fase estável apenas em 310 K sugere que tempos de amostragem longos e protocolos de equilíbrio multiestágio são fundamentais para evitar artefatos cinéticos \cite{pedersen2024}.
+    
+    \item \textbf{Sensibilidade à Hidratação:} Os dados indicam que a hidratação atua como um regulador crítico da fluidez. A convergência dos resultados de 40W e 45W justifica a escolha desta última como \textit{baseline} metodológica, garantindo que as variações observadas nos sistemas subsequentes com colesterol sejam decorrentes da composição química e não de restrições de solvente.
+\end{itemize}
+
+\section{Análise do Sistema sob Baixa Hidratação (15W\_L)}
+
+Nesta etapa, investigou-se o comportamento das misturas DPPC/DSPC sob regime de baixa hidratação (15 moléculas de água por lipídio). Este cenário é fundamental para compreender como a restrição do solvente modula as propriedades estruturais da bicamada, uma vez que a literatura do Martini 3 aponta a hidratação como um regulador crítico da fluidez de membrana \cite{pedersen2024}.
+
+\subsection{Resultados de Área por Lipídio (APL)}
+
+Diferentemente do observado nos sistemas com maior volume de água, o sistema \textbf{15W\_L} apresentou um comportamento termodinâmico mais estável e uma transição de fase nítida entre as temperaturas de 310 K e 330 K . A redução do solvente eliminou a persistência de estados metaestáveis observados em regimes de saturação hídrica, permitindo que o sistema atingisse o equilíbrio de fase de forma mais célere.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.85\textwidth]{grafico_APL_15W\_L.png}
+    \caption{Área por lipídio ($\text{\AA}^2$) para o sistema 15W\_L. Nota-se a ausência de estados de líquido super-resfriado e uma transição cooperativa bem definida .}
+    \label{fig:apl_15w}
+\end{figure}
+
+\subsection{Discussão: Efeito da Desidratação e Estabilização de Fase}
+
+A análise comparativa entre os regimes de 45W\_L e 15W\_L destaca dois fenômenos governados pela disponibilidade de água:
+
+\begin{enumerate}
+    \item \textbf{Compactação Estrutural por Blindagem Dielétrica:} Na fase fluida (350 K), a APL máxima foi de aproximadamente $61,5 \text{ \AA}^2$, representando uma redução significativa em relação aos $\sim 63,5 \text{ \AA}^2$ do sistema 45W\_L . Este efeito decorre da diminuição da blindagem dielétrica entre os grupos polares das cabeças lipídicas na ausência de solvente; a maior atração eletrostática lateral resultante induz um empacotamento mais denso e uma bicamada mais compacta \cite{pedersen2024}.
+    
+    \item \textbf{Facilitação da Nucleação da Fase Gel:} O sistema DSPC puro (0\_100) não apresentou os estados de líquido super-resfriado observados em 45W\_L . Sugere-se que a baixa hidratação reduz o volume livre disponível, o que facilita o empacotamento das caudas alquílicas e diminui drasticamente a barreira de nucleação para a formação da fase $L_\beta$ \cite{pedersen2024}. Assim, mesmo a 290 K, o sistema já se inicia em valores característicos de fase gel estável ($\sim 44,8 \text{ \AA}^2$) .
+\end{enumerate}
+
+A Tabela \ref{tab:dados_15w} resume os valores médios de APL obtidos para este regime.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Valores médios de APL ($\text{\AA}^2$) para o sistema 15W\_L nas fases Gel e Fluida .}
+    \label{tab:dados_15w}
+    \begin{tabular}{@{}lcc@{}}
+        \toprule
+        Proporção (DPPC\_DSPC) & APL a 290 K (Gel) & APL a 350 K (Fluida) \\ \midrule
+        100\_0 (DPPC puro)     & $\sim 46,2$       & $\sim 61,8$          \\
+        50\_50                 & $\sim 45,5$       & $\sim 61,2$          \\
+        0\_100 (DSPC puro)     & $\sim 44,8$       & $\sim 60,9$          \\ \bottomrule
+    \end{tabular}
+\end{table}
+
+\section{Análise do Sistema de Hidratação Intermediária (27W\_L)}
+
+O sistema com hidratação intermediária (27 moléculas de água por lipídio) revelou um comportamento dinâmico singular, atuando como um regime de transição entre a estabilidade observada em 15W\_L e a persistente metastabilidade de 45W\_L. Os resultados de APL para este sistema estão apresentados na Figura \ref{fig:apl_27w}.
+
+% --- Certifique-se de subir o arquivo grafico_APL_27W\_L.png para o Overleaf ---
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.85\textwidth]{grafico_APL_27W\_L.png}
+    \caption{Área por lipídio ($\text{\AA}^2$) para o sistema 27W\_L. O perfil evidencia um fenômeno de cristalização tardia em 320 K.}
+    \label{fig:apl_27w}
+\end{figure}
+
+\subsection{Discussão: Nucleação Induzida Termicamente e Cristalinidade}
+
+O perfil termotrópico do sistema 27W\_L destaca-se pelo comportamento das misturas ricas em DSPC (0\_100 e 25\_75) entre as temperaturas de 290 K e 333 K. A análise detalhada permite inferir as seguintes conclusões:
+
+\begin{itemize}
+    \item \textbf{Retenção em Estado Metaestável (290 K -- 310 K):} Semelhante ao observado em sistemas mais hidratados, a membrana iniciou a simulação em um estado desordenado e permaneceu retida em uma fase de líquido super-resfriado ($APL \approx 61 \text{ \AA}^2$), incapaz de superar a barreira de nucleação para a fase gel em baixas energias térmicas.
+    
+    \item \textbf{Superação da Barreira de Nucleação (320 K):} Observou-se uma queda abrupta na APL para valores de $\sim 46 \text{ \AA}^2$ especificamente nesta temperatura. Este fenômeno indica que o incremento térmico forneceu a mobilidade necessária para que os lipídios vencessem a barreira energética de organização, permitindo o empacotamento efetivo das caudas alquílicas na fase $L_\beta$.
+    
+    \item \textbf{Transição de Fase Termodinâmica (333 K+):} Acima de 320 K, o sistema retorna a apresentar valores de APL elevados, condizentes com a fusão real da membrana para a fase fluida estável ($L_\alpha$).
+\end{itemize}
+
+A Tabela \ref{tab:dados_27w} sumariza as variações de APL observadas, destacando o ponto de cristalização anômalo.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Valores críticos de APL ($\text{\AA}^2$) para o sistema 27W\_L.}
+    \label{tab:dados_27w}
+    \begin{tabular}{@{}lccc@{}}
+        \toprule
+        Proporção (DPPC\_DSPC) & APL a 310 K (Fluido/Meta) & APL a 320 K (Gel/Nucleado) & APL a 350 K (Fluido) \\ \midrule
+        100\_0 (DPPC puro)     & $\sim 56,5$               & $\sim 58,2$                & $\sim 62,5$          \\
+        0\_100 (DSPC puro)     & $\sim 61,2$               & $\sim 46,1$                & $\sim 61,9$          \\ \bottomrule
+    \end{tabular}
+\end{table}
+\section{Consolidação dos Resultados: Hidratação e Transição de Fase}
+
+A Figura \ref{fig:consolidado} apresenta a síntese dos resultados obtidos para as bicamadas puras de DPPC e DSPC. Esta representação é fundamental para observar o efeito cooperativo entre a temperatura e o nível de hidratação.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.0\textwidth]{comparativo_final_TCC.png}
+    \caption{Influência da hidratação na transição de fase termotrópica. À esquerda, o efeito de expansão lateral do DPPC. À direita, a dinâmica de nucleação do DSPC, evidenciando os estados metaestáveis (marcadores X) em regimes de média e alta hidratação.}
+    \label{fig:consolidado}
+\end{figure}
+
+\subsection{Conclusões do Capítulo}
+Os dados demonstram que a hidratação atua como um regulador da fluidez de membrana no modelo Martini 3. Conclui-se que:
+\begin{itemize}
+    \item O aumento da água por lipídio ($W_L$) estabiliza a fase fluida ($L_\alpha$), elevando a barreira energética para a transição gel;
+    \item A metaestabilidade é um fenômeno cinético persistente em escalas de tempo de 200 ns para hidratações acima de $15W\_L$;
+    \item A convergência da APL para $\sim 45\text{ \AA}^2$ na fase gel sugere que o ordenamento das caudas saturadas ($C_{16}$ e $C_{18}$) é governado primariamente pelas interações de van der Waals intrínsecas, com influência secundária do solvente.
+\end{itemize}
+
+\section{Comportamento das Misturas Binárias DPPC/DSPC}
+
+A análise das misturas em diferentes proporções molares, consolidada na Figura \ref{fig:global_misturas}, permite observar a transição de fase cooperativa entre os componentes. Diferente dos sistemas puros, as misturas apresentam uma zona de coexistência de fases onde o desordenamento das cadeias $C_{16}$ e $C_{18}$ ocorre de forma gradual . 
+
+Observa-se que a adição de DSPC a uma matriz de DPPC desloca progressivamente a transição de fase para temperaturas mais altas, devido ao maior comprimento da cadeia alquílica e ao incremento das interações de van der Waals . Além disso, a hidratação exerce um papel crítico na estabilização dos estados metaestáveis: quanto maior a proporção de DSPC e o nível de hidratação, maior a probabilidade de o sistema permanecer em estado fluido abaixo da $T_m$ experimental, conforme previsto pelo refinamento do modelo Martini 3 \cite{pedersen2024}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.0\textwidth]{comparativo_global_misturas.png}
+    \caption{Mosaico comparativo da APL em função da temperatura para as cinco proporções molares e três níveis de hidratação estudados. Nota-se que o efeito de compactação da baixa hidratação (15W\_L) é consistente em todo o gradiente de concentração .}
+    \label{fig:global_misturas}
+\end{figure}
+
+\section{Análise Global das Misturas DPPC/DSPC}
+
+A visão panorâmica apresentada na Figura \ref{fig:global_misturas} é fundamental para identificar padrões de cooperatividade molecular. A partir deste mosaico de resultados, observa-se que a inclusão de DPPC nas misturas ricas em DSPC atua como um facilitador cinético . Enquanto o DSPC puro ($0\_100$) apresenta forte resistência à cristalização em regimes de alta hidratação, as misturas equimolares ($50\_50$) exibem transições de fase mais homogêneas. 
+
+Este comportamento sugere que a heterogeneidade molecular na bicamada reduz a energia de ativação necessária para o empacotamento das cadeias alquílicas . Além disso, confirma-se que a influência da hidratação na APL é um fenômeno universal para este sistema, onde o gradiente de área ($45W > 27W > 15W$) é mantido independentemente da proporção molar de fosfolipídios, corroborando a tese de que a água atua como um regulador direto da blindagem dielétrica e do volume livre disponível na interface polar \cite{pedersen2024}.
+
+A partir do mosaico de resultados, observa-se que a inclusão de DPPC nas misturas ricas em DSPC atua como um facilitador cinético. Enquanto o DSPC puro ($0\_100$) apresenta forte resistência à cristalização em regimes de alta hidratação, as misturas equimolares ($50\_50$) exibem transições de fase mais homogêneas. 
+
+Este comportamento sugere que a heterogeneidade molecular na bicamada reduz a energia de ativação necessária para o empacotamento das cadeias alquílicas. Além disso, confirma-se que a influência da hidratação na APL é um fenômeno universal para este sistema, onde o gradiente de área ($45W > 27W > 15W$) é mantido independentemente da proporção molar de fosfolipídios.
+
+\subsection{Influência do Nível de Hidratação na Estrutura da Bicamada}
+
+Para validar a escolha da hidratação padrão utilizada nos demais sistemas deste trabalho, realizou-se uma análise comparativa da Área por Lipídio >
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.85\textwidth]{comparativo_hidratacao_google.png}
+    \caption{Efeito da hidratação na área por lipídio para sistemas de DPPC puro (100:0). As cores seguem o padrão visual: 15 $W/L$ (azul), 27 $W/L$ (vermelho), 40 $W/L$ (verde) e 45 $W/L$ (amarelo).}
+    \label{fig:comparativo_hidratacao}
+\end{figure}
+
+Os resultados indicam que a redução da hidratação para níveis críticos (15 $W/L$) promove uma compressão lateral significativa na bicamada, result>
+
+Um ponto crucial para a fundamentação desta metodologia é observado na convergência entre os sistemas de 40 $W/L$ e 45 $W/L$. Nota-se que a curva >
+
+Dessa forma, a utilização de 45 $W/L$ como \textit{baseline} para as simulações subsequentes com colesterol e misturas binárias mostra-se adequada>
+
+
+\section{Impacto do Colesterol na Dinâmica de Fase (Sistema CHOL\_30)}
+
+A introdução de 30\% molar de colesterol resultou em uma mudança paradigmática no perfil termotrópico das membranas binárias, conforme ilustrado na Figura \ref{fig:apl_chol_final}.
+
+
+\subsection{Configuração dos Sistemas}
+
+Todos os sistemas contendo colesterol foram preparados seguindo o protocolo de hidratação total (\textit{full hydration}), com uma razão de 40 moléculas de água por lipídio ($W_L = 40$). A composição nominal de 9600 moléculas de água garante que as propriedades termotrópicas da bicamada sejam observadas sem restrições de solvente.
+
+As variações no número de moléculas para cada sistema são detalhadas na Tabela \ref{tab:composicao_final}.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Detalhamento da composição molecular dos sistemas simulados.}
+    \label{tab:composicao_final}
+    \begin{tabular}{lccccc}
+        \toprule
+        Sistema & DPPC/DSPC & CHOL & Água (W) & $W_L$ & Mol. por Folheto \\ \midrule
+        CHOL\_0  & 242 & 0  & 9680$^*$ & 40 & 121 \\
+        CHOL\_3  & 230 & 10 & 9600 & 40 & 120 \\
+        CHOL\_30 & 166 & 74 & 9600 & 40 & 120 \\ \bottomrule
+    \end{tabular}
+    \small \\ $^*$Estimativa baseada na proporção de 40W para 242 lipídios.
+\end{table}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.85\textwidth]{grafico_APL_CHOL\_30.png}
+    \caption{Área média por molécula ($\text{\AA}^2$) para o sistema CHOL\_30. Observa-se a linearização da curva de expansão térmica e a supressão da transição de fase de primeira ordem.}
+    \label{fig:apl_chol_final}
+\end{figure}
+
+\subsection{Caracterização da Fase Líquida Ordenada ($L_o$)}
+
+Diferente dos sistemas puramente lipídicos, a presença do colesterol impede o empacotamento cristalino rigoroso em baixas temperaturas e a desordem excessiva em altas temperaturas. Os principais achados preliminares incluem:
+
+\begin{itemize}
+    \item \textbf{Efeito Condensador Acentuado:} Em 350 K, a área média por molécula foi reduzida para aproximadamente $47 \text{ \AA}^2$, representando uma contração de cerca de 25\% em relação aos sistemas sem colesterol. Este fenômeno decorre da interação favorável entre os anéis esteroides rígidos e as caudas saturadas dos fosfolipídios.
+    \item \textbf{Desaparecimento da Cooperatividade:} A curva de $A_{mol}$ não apresenta o salto característico observado nos sistemas de 15W, 27W e 45W, indicando que a transição de fase foi substituída por um estado de ordem líquida persistente em toda a faixa de temperatura estudada.
+    \item \textbf{Homogeneização do Sistema:} A variação de área entre misturas ricas em DPPC e DSPC tornou-se mínima ($\Delta A \approx 1 \text{ \AA}^2$), sugerindo que o colesterol domina as propriedades elásticas da membrana, sobrepondo-se ao efeito do comprimento da cadeia lipídica.
+\end{itemize}
+
+\section{Impacto da Concentração de Colesterol na Área Média por Lipídio}
+
+A análise da área média por molécula ($A_{mol}$) em função da temperatura revelou comportamentos distintos para cada regime de concentração de colesterol estudado (0\%, 3\% e 30\% molar), conforme ilustrado na Figura \ref{fig:comparativo_global_chol}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{comparativo_chol_global.png}
+    \caption{Área média por molécula ($\text{\AA}^2$) em função da temperatura para diferentes misturas binárias de DPPC/DSPC sob três concentrações de colesterol.}
+    \label{fig:comparativo_global_chol}
+\end{figure}
+
+\subsection{Efeito Condensador e Modulação da Transição de Fase}
+
+Os resultados demonstram que a inclusão de colesterol atua de forma bimodal na estrutura da bicamada:
+
+\begin{itemize}
+    \item \textbf{Regime de Baixa Concentração (0\% e 3\%):} Tanto o sistema puro quanto o sistema com 3\% de colesterol exibem uma transição de fase de primeira ordem bem definida. Observa-se o salto característico na $A_{mol}$ entre 310 K e 330 K, correspondente à transição da fase gel ($L_\beta$) para a fase líquida-cristalina ($L_\alpha$). No entanto, mesmo com apenas 3\% de esterol, nota-se o início do \textit{efeito condensador}, onde a área na fase fluida (350 K) é ligeiramente inferior à do sistema puro.
+    
+    \item \textbf{Regime de Alta Concentração (30\%):} No sistema com 30\% de colesterol, a transição de fase cooperativa é completamente suprimida. A curva de $A_{mol}$ torna-se linear em toda a faixa de temperatura (Figura \ref{fig:chol_30_detalhe}), indicando a formação da fase \textbf{Líquida Ordenada ($L_o$)}. Nesta fase, a membrana mantém uma alta ordem conformacional das caudas acila (típica da fase gel), mas com uma difusão lateral característica de líquidos.
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{grafico_APL_CHOL\_30.png}
+    \caption{Detalhamento da expansão térmica linear para o sistema com 30\% de colesterol (Fase $L_o$).}
+    \label{fig:chol_30_detalhe}
+\end{figure}
+
+\subsection{Análise da Área por Molécula a 30\% de Colesterol}
+
+Para o sistema CHOL\_30, a área por molécula variou entre aproximadamente $41 \text{ \AA}^2$ (290 K) e $47 \text{ \AA}^2$ (350 K). Este comportamento é notavelmente independente da proporção de DPPC/DSPC, sugerindo que, em concentrações elevadas, o colesterol domina as propriedades elásticas da membrana, minimizando o impacto do comprimento das cadeias saturadas dos fosfolipídios.
+
+A redução drástica da área em altas temperaturas (de $\sim 63 \text{ \AA}^2$ no sistema puro para $\sim 47 \text{ \AA}^2$ a 30\% de colesterol) confirma o papel do esterol no aumento do empacotamento molecular e na redução da permeabilidade da bicamada, fatores essenciais para a integridade biológica em organismos termófilos ou sob estresse térmico.
+
+\section{Efeito Combinado de Colesterol e Íons na Área por Lipídio}
+Os resultados da Área por Lipídio (APL) em função da temperatura para os sistemas em meio salino ($0,15$ M de NaCl) revelam a manutenção do comportamento de transição de fase, apresentando nuances estruturais importantes decorrentes da interação entre os íons e o esterol. Conforme ilustrado na Figura \ref{fig:grafico_salt}, o sistema de controle salino ($0\% \text{ CHOL} + \text{Sal}$) exibe um salto abrupto na APL entre as temperaturas de 310 K e 333 K, caracterizando a transição da fase gel ($L_\beta$) para a fase líquida-cristalina ($L_\alpha$). Em 290 K, a APL média obtida foi de aproximadamente $44,9 \text{ \AA}^2$, expandindo-se para $62,5 \text{ \AA}^2$ a 350 K.
+
+\subsection{Análise Global do Efeito Condensador em Meio Salino}
+
+A visão panorâmica apresentada pelo mosaico de concentrações (Figura \ref{fig:mosaico_salino}) permite avaliar a resposta termodinâmica de todas as misturas binárias de DPPC/DSPC sob influência simultânea de blindagem iônica ($0,15$ M NaCl) e saturação por colesterol. 
+
+No regime de baixa concentração (4\% de CHOL), observa-se que o esterol atua predominantemente como uma "impureza estrutural" em baixas temperaturas. A Área por Lipídio (APL) na fase gel apresenta valores ligeiramente superiores aos do sistema controle (0\% CHOL), indicando uma perturbação pontual do empacotamento hexagonal das cadeias saturadas. À medida que o sistema cruza a temperatura de transição ($T_m$), o comportamento inverte-se, e a curva de 4\% passa a exibir uma APL menor que o controle, marcando o início do efeito condensador na fase fluida.
+
+O cenário muda drasticamente sob alta saturação (40\% de CHOL). O mosaico evidencia que a adição maciça de colesterol suprime por completo a transição de fase cooperativa em todas as proporções de DPPC/DSPC. As curvas de APL tornam-se quase retilíneas, estabilizando-se em valores próximos a $43-45 \text{ \AA}^2$ ao longo de todo o gradiente térmico. Este achatamento confirma a transição do sistema para a fase Líquida Ordenada ($L_o$).
+
+Este comportamento é fortemente suportado por modelos analíticos de membranas, como o proposto por Kheyfets e Mukhin (2015), que demonstram que a dependência da área por lipídio em relação à concentração de colesterol é inerentemente não-linear \cite{kheyfets2015}. Em modelos de cordas flexíveis (\textit{flexible strings model}), o colesterol atua como uma haste rígida (\textit{rigid rod}) de espessura finita e rigidez infinita, enquanto os fosfolipídios são modelados como cordas flexíveis que sofrem restrição de movimento \cite{kheyfets2015}. Os dados computacionais obtidos neste trabalho corroboram essa premissa teórica: a força deste empacotamento hidrofóbico induzido pelo esterol rígido domina a mecânica da bicamada a 40\% de concentração. Esta dominância induz a condensação das caudas flexíveis e anula a cooperatividade intrínseca da mistura de carbonos 16 e 18, sobrepondo-se até mesmo à influência da blindagem dielétrica do solvente salino.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.0\textwidth]{comparativo_global_salino.pdf}
+    \caption{Mosaico comparativo da Área por Lipídio em função da temperatura para cinco misturas binárias de DPPC/DSPC em meio salino ($0,15$ M NaCl). As curvas demonstram o impacto progressivo de 0\%, 4\% e 40\% mol de colesterol, evidenciando a supressão total da transição de fase na maior concentração.}
+    \label{fig:mosaico_salino}
+\end{figure}
+
+Ao comparar com o sistema contendo 4\% de colesterol, nota-se que... (discussão sobre o efeito condensador e o cruzamento das curvas em 320 K).
+
+Entretanto, na região de transição ($\sim 320$ K), observa-se o cruzamento das curvas: o sistema com 4\% de CHOL apresenta uma área menor ($\approx 47,4 \text{ \AA}^2$) que o controle ($\approx 47,9 \text{ \AA}^2$). Este ponto marca o início do efeito condensador do colesterol, que se torna mais proeminente à medida que a membrana se aproxima da fase fluida. Acima de 333 K, as curvas tendem a convergir, indicando que a influência de apenas 4\% de colesterol é mitigada pela agitação térmica elevada e pela blindagem eletrostática promovida pelos íons na interface da membrana.
+
+\subsection{Modulação Estrutural e Mecânica pelo Colesterol}
+
+A introdução de colesterol nas bicamadas de DPPC e DSPC (nas proporções de 25\% e 50\%) alterou drasticamente a Área por Lipídio (APL) do sistema, evidenciando o conhecido efeito de condensação. Este comportamento não-linear da APL em misturas com colesterol encontra forte embasamento em modelos analíticos de cordas flexíveis (\textit{flexible strings model}) \cite{kheyfets2015}.
+
+Conforme demonstrado teoricamente por Kheyfets e Mukhin (2015), enquanto os fosfolipídios puros (DPPC/DSPC) atuam como "cordas" flexíveis suscetíveis a flutuações de espessura e vibrações de volume, a molécula de colesterol atua mecanicamente como uma haste rígida (\textit{rigid rod}) e espessa inserida na matriz \cite{kheyfets2015}. A presença deste esterol impõe uma pressão lateral interfacial que suprime as flutuações das cadeias acílicas adjacentes. Esta supressão dos graus de liberdade vibracionais (\textit{trans-gauche}) obriga os lipídios a adotarem uma conformação mais esticada, reduzindo a Área por Lipídio global ao mesmo tempo que mantém o interior da membrana fluido, o que justifica a ausência de cristalização para a fase gel nos nossos sistemas contendo colesterol, independentemente da temperatura.
+
+\subsection{Influência da Força Iônica e Baixas Concentrações de Colesterol}
+
+A análise da Figura \ref{fig:grafico_salt} apresenta a evolução da APL para os sistemas em meio salino ($0,15$ M de NaCl). Observa-se que, para o sistema puro, a transição ocorre de forma acentuada entre 310 K e 333 K. 
+
+
+Curiosamente, a inserção de 4\% de colesterol promove um comportamento dual, sugerindo que pequenas quantidades de esterol atuam como impurezas estruturais na fase gel \cite{pedersen2024}.
+
+A análise estrutural da bicamada lipídica composta por DPPC/DSPC/Colesterol (na proporção 50:50 para os fosfolipídios, com 40\% mol de colesterol) a 333 K revelou a formação de um sistema lamelar altamente estável ao final da etapa de produção. A inspeção visual das trajetórias demonstra que não houve separação macroscópica de fases (formação de grandes domínios isolados), mas sim uma mistura lateral homogênea e dinâmica entre as moléculas de DPPC e DSPC em ambos os folhetos da membrana, conforme ilustrado na Figura \ref{fig:mosaico_9_angulos}.
+A inspeção visual das trajetórias demonstra que não houve separação macroscópica de fases (formação de grandes domínios isolados), mas sim uma mistura lateral homogênea e dinâmica entre as moléculas de DPPC e DSPC em ambos os folhetos da membrana. Essa estabilidade pode ser acompanhada na Figura \ref{fig:mosaico_dinamico}, que apresenta, além da perspectiva lateral, uma sequência de quadros (frames) extraídos dos momentos finais da simulação de produção. A evolução temporal evidencia a constância do efeito de condensação: as moléculas de colesterol (em amarelo) permanecem dinamicamente intercoladas entre as cadeias acílicas, garantindo um empacotamento denso e contínuo característico da fase líquida-ordenada ($L_o$).
+
+A dinâmica de solvatação e a distribuição iônica ao redor da bicamada mista foram inspecionadas visualmente, buscando compreender a interação do solvente com a interface polar da membrana. Para evidenciar a difusão dos íons e a penetração da água de forma clara e didática, optou-se por uma renderização com escala visual ajustada. Neste modelo pedagógico, os raios de van der Waals das moléculas de água foram intencionalmente reduzidos, enquanto os íons de sódio e cloreto foram ampliados. Essa formatação permite rastrear o comportamento iônico ao longo da caixa de simulação sem que a densidade do solvente oblitere a visão do núcleo hidrofóbico, conforme apresentado no mosaico da Figura \ref{fig:mosaico_pedagogico}.
+
+\begin{figure}[htpb]
+    \centering
+    % ================= PRIMEIRA LINHA (4 imagens) =================
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img1.jpg}
+        \caption{Vista lateral}
+        \label{fig:mos_1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img3.jpg} % Pulamos a img2 (duplicada)
+        \caption{Frame $t_1$}
+        \label{fig:mos_3}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img4.jpg}
+        \caption{Frame $t_2$}
+        \label{fig:mos_4}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img5.jpg}
+        \caption{Frame $t_3$}
+        \label{fig:mos_5}
+    \end{subfigure}
+
+    \vspace{0.4cm} % Espaço vertical entre as linhas
+
+    % ================= SEGUNDA LINHA (4 imagens) =================
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img6.jpg}
+        \caption{Frame $t_4$}
+        \label{fig:mos_6}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img7.jpg}
+        \caption{Frame $t_5$}
+        \label{fig:mos_7}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img8.jpg}
+        \caption{Frame $t_6$}
+        \label{fig:mos_8}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img9.jpg}
+        \caption{Frame $t_7$}
+        \label{fig:mos_9}
+    \end{subfigure}
+
+    \caption{Mosaico do sistema DPPC/DSPC/Colesterol (40\% mol) a 333 K. Em (a), observa-se a vista lateral evidenciando o empacotamento das caudas. De (b) a (h), são apresentados diferentes quadros (frames) extraídos dos momentos finais da etapa de produção. A evolução temporal confirma que a mistura se mantém estável, sem separação macroscópica de fases, com o colesterol (amarelo) dinamicamente intercalado e homogeneamente distribuído pelo núcleo hidrofóbico, sustentando a fase líquida-ordenada ($L_o$).}
+    \label{fig:mosaico_dinamico}
+\end{figure}
+
+
+
+\begin{figure}[htpb]
+    \centering
+    % ================= TOPO: PANORÂMICA (Vista Lateral) =================
+    \begin{subfigure}[b]{0.98\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img_panoramica_140505.png} % Substitua pelo nome correto da panorâmica
+        \caption{Corte transversal evidenciando a completa solvatação da bicamada}
+        \label{fig:mos_ped_1}
+    \end{subfigure}
+
+    \vspace{0.6cm} % Espaço entre as linhas
+
+    % ================= BASE: 3 PERSPECTIVAS LADO A LADO =================
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img_persp_135957.png} % Substitua pelo nome correto
+        \caption{Vista isométrica A}
+        \label{fig:mos_ped_2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img_persp_140217.png} % Substitua pelo nome correto
+        \caption{Vista isométrica B}
+        \label{fig:mos_ped_3}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img_persp_140322.png} % Substitua pelo nome correto
+        \caption{Vista isométrica C}
+        \label{fig:mos_ped_4}
+    \end{subfigure}
+
+    \caption{Visualização da solvatação e distribuição iônica do sistema DPPC/DSPC/Colesterol em meio salino a 333 K. Para fins de clareza didática, utilizou-se uma escala atômica modificada: a malha de água (esferas azuis translúcidas) apresenta raio reduzido, enquanto os íons de Na+ (verde) e Cl- (roxo) encontram-se ampliados, destacando a sua distribuição volumétrica na fase aquosa e a ausência de permeação no núcleo hidrofóbico denso ($L_o$).}
+    \label{fig:mosaico_pedagogico}
+\end{figure}
+
+
+\begin{figure}[htpb]
+    \centering
+    
+    % ================= PRIMEIRA LINHA: Momentos Iniciais =================
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{real_ini1.png}
+        \caption{Frame inicial $t_1$}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{real_ini2.png}
+        \caption{Frame inicial $t_2$}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{real_ini3.png}
+        \caption{Frame inicial $t_3$}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{real_ini4.png}
+        \caption{Frame inicial $t_4$}
+    \end{subfigure}
+
+    \vspace{0.4cm} % Espaçamento visual entre as linhas do tempo
+
+    % ================= SEGUNDA LINHA: Momentos Finais =================
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{real_fin1.png}
+        \caption{Frame final $t_5$}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{real_fin2.png}
+        \caption{Frame final $t_6$}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{real_fin3.png}
+        \caption{Frame final $t_7$}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{real_fin4.png}
+        \caption{Frame final $t_8$}
+    \end{subfigure}
+
+    \caption{Evolução temporal da bicamada de DPPC/DSPC/Colesterol em meio salino durante a etapa de produção. A renderização utiliza os raios atômicos em escala geométrica real, conforme os parâmetros do campo de força Martini 3, ilustrando a alta densidade de empacotamento. A comparação entre os momentos iniciais (linha superior) e finais (linha inferior) comprova a estabilidade estrutural do sistema e a manutenção de uma mistura lateral homogênea na fase líquida-ordenada ($L_o$), sem ocorrência de separação macroscópica de fases.}
+    \label{fig:mosaico_escala_real_tempo}
+\end{figure}
+
+
+\begin{figure}[htpb]
+    \centering
+    
+    % ================= LINHA 1: Vistas Laterais (Espessura) =================
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{dppc_lat.png}
+        \caption{DPPC (C16) - Vista Lateral}
+        \label{fig:mismatch_dppc_lat}
+    \end{subfigure}
+    \hspace{1.5cm} % Espaçamento fixo para manter centralizado e alinhado
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{dspc_lat.png}
+        \caption{DSPC (C18) - Vista Lateral}
+        \label{fig:mismatch_dspc_lat}
+    \end{subfigure}
+
+    \vspace{0.4cm} % Respiro entre as linhas
+
+    % ================= LINHA 2: Vistas Isométricas =================
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{dppc_iso.png}
+        \caption{DPPC (C16) - Perspectiva}
+        \label{fig:mismatch_dppc_iso}
+    \end{subfigure}
+    \hspace{1.5cm} % Mesmo espaçamento da linha de cima
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{dspc_iso.png}
+        \caption{DSPC (C18) - Perspectiva}
+        \label{fig:mismatch_dspc_iso}
+    \end{subfigure}
+
+    \caption{Comparativo visual do efeito do comprimento da cadeia acílica (mismatch hidrofóbico) na estrutura da bicamada a 310 K. À esquerda, o sistema composto por DPPC (16 carbonos) apresenta um núcleo hidrofóbico mais estreito. À direita, o sistema composto por DSPC (18 carbonos) evidencia um ganho de espessura na membrana e uma alteração na distribuição geométrica da solvatação. O uso de raios atômicos reais com a nova representação de solvente (Glass1) e íons harmonizados destaca a acomodação molecular em ambos os sistemas.}
+    \label{fig:mosaico_mismatch}
+\end{figure}
+
+
+
+% COLOQUE ESTE COMANDO ANTES DA SUA SEÇÃO DE REFERÊNCIAS:
+\clearpage
+
+\
+
+\subsection{Espessura da Bicamada e Efeito do Comprimento da Cadeia}
+
+Para complementar a análise termodinâmica da área por lipídio, investigou-se a espessura da membrana (distância média transversal entre os grupos polares) em função da temperatura para o sistema de alta hidratação (45 W/L). Como ilustrado na Figura \ref{fig:espessura_45W\_L}, a espessura da bicamada apresenta uma correlação inversamente proporcional à sua área lateral. 
+
+Na fase gel ($T < 310$ K), as cadeias acílicas encontram-se altamente ordenadas e estendidas na conformação \textit{trans}, resultando em espessuras máximas que variam de aproximadamente $4,6$ nm para o DPPC puro a $5,0$ nm para o DSPC puro. Com o incremento térmico e a transição para a fase fluida ($L_\alpha$), o aumento da probabilidade de isomerização rotacional \textit{trans-gauche} induz uma maior desordem nas cadeias hidrocarbônicas \cite{kucerka2011}. Esta desordem térmica provoca a expansão lateral da bicamada e sua consequente contração transversal, evidenciada pela queda abrupta nas curvas de espessura \cite{kucerka2011}.
+
+Este comportamento termotrópico e a dependência em relação ao comprimento da cadeia corroboram fortemente os dados experimentais de espalhamento de raios-X e nêutrons reportados por Ku\v{c}erka et al. (2011) \cite{kucerka2011}. O estudo demonstra que, na fase fluida, a espessura total da bicamada ($D_B$) é sistematicamente maior para lipídios de cadeia mais longa. Isso ocorre porque o incremento nas interações atrativas de van der Waals nas caudas maiores contrabalança parcialmente o efeito de desordem térmica \cite{kucerka2011}.
+
+Quantitativamente, os resultados computacionais obtidos pelo campo de força Martini 3 demonstram excelente concordância com a literatura. Ku\v{c}erka et al. reportam uma espessura experimental de aproximadamente $3,90$ nm para o DPPC a 323 K ($50^\circ$C) e $4,22$ nm para o DSPC a 333 K ($60^\circ$C) \cite{kucerka2011}. Em nossas simulações, no regime totalmente fluido (350 K), o sistema puro de DPPC convergiu para $\sim 4,05$ nm, enquanto o DSPC estabilizou-se em $\sim 4,25$ nm. A preservação deste gradiente estrutural ($\Delta \approx 0,2$ nm) entre o $C_{16}$ e o $C_{18}$ valida a capacidade do modelo \textit{coarse-grained} com mapeamento refinado de reproduzir a mecânica fina do empacotamento hidrofóbico das membranas biológicas.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{grafico_espessura_45W\_L.pdf}
+    \caption{Perfil termotrópico da espessura da membrana para o sistema de alta hidratação (45 W/L). A queda na espessura acompanha o derretimento das cadeias alquílicas na transição da fase gel para a fluida, mantendo-se a hierarquia de espessura proporcional ao comprimento da cadeia (DSPC > DPPC).}
+    \label{fig:espessura_45W\_L}
+\end{figure}
+
+Para avaliar quantitativamente a precisão estrutural do modelo de \textit{coarse graining}, os valores médios de espessura transversal obtidos na fase fluida foram confrontados com a literatura. A Tabela \ref{tab:espessura_comparativa} sumariza esta validação cruzada utilizando como referência os dados de dispersão de raios-X e neutrões de Ku\v{c}erka \textit{et al.} (2011) \cite{kucerka2011}. O erro relativo percentual (Desvio) confirma que o mapeamento adotado para o campo de força Martini 3 reproduz a espessura da bicamada dentro de uma margem de erro perfeitamente aceitável para modelos de baixa resolução, garantindo a fiabilidade das observações geométricas e termodinâmicas reportadas neste trabalho.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Comparação da espessura da bicamada em fase fluida ($L_\alpha$): Martini 3 \textit{vs.} Experimental.}
+    \label{tab:espessura_comparativa}
+    \begin{tabular}{@{}llcc@{}}
+        \toprule
+        \textbf{Lipídio} & \textbf{Temp. (K)} & \textbf{Espessura Exp. (nm)\textsuperscript{a}} & \textbf{Espessura Martini 3 (nm)\textsuperscript{b}} \\
+        \midrule
+        DPPC (100:0) & 323 (Exp) / 320 (Sim) & 3,90 & 4,16 $\pm$ 0,07 \\
+        DPPC (100:0) & 333 & 3,81 & 4,01 $\pm$ 0,08 \\
+        DSPC (0:100) & 333 & 4,22 & 4,53 $\pm$ 0,07 \\
+        \bottomrule
+    \end{tabular}
+    
+    \vspace{1ex}
+    \raggedright
+    \footnotesize{\textsuperscript{a} Dados experimentais ($D_B$) de Ku\v{c}erka \textit{et al.} (2011) \cite{kucerka2011}.\\
+    \textsuperscript{b} Valores obtidos via FATSLiM (média $\pm$ desvio padrão).}
+\end{table}
+
+
+\section{Análise Energética das Membranas}
+
+A análise das energias de interação de Lennard-Jones (LJ-SR) a 310 K detalha o comportamento termodinâmico do colesterol na bicamada. Como observado na Figura \ref{fig:lj_barras_310k}, ao compararmos os sistemas de controle em meio salino (0\% de colesterol) com os sistemas contendo 40\% de colesterol, nota-se que as magnitudes globais da energia de dispersão se mantêm em faixas próximas em todas as estequiometrias (situando-se entre $-289.000$ e $-305.000\text{ kJ/mol}$).
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparativo_LJ_Colesterol_310K.png}
+    \caption{Comparativo das interações globais de Lennard-Jones a 310 K. O posicionamento lado a lado evidencia a estabilidade isoperibólica: a adição de 40\% de colesterol (laranja) mantém a energia entálpica global da caixa em patamares similares aos do sistema livre de esterol (azul), refletindo a compensação entre a diminuição da solvatação e o aumento do empacotamento hidrofóbico.}
+    \label{fig:lj_barras_310k}
+\end{figure}
+
+Esta constância energética indica que a condensação induzida pelo esterol não resulta em uma redução expressiva (valores mais negativos) da entalpia global da caixa. Em vez disso, o colesterol, ao intercalar-se entre as caudas acílicas dos fosfolipídios e induzir a fase líquida-ordenada ($L_o$), atua remodelando a origem das forças de van der Waals: ele compensa a perda das interações de dispersão da água interfacial, substituindo-as pela otimização do empacotamento denso no núcleo hidrofóbico \cite{bennett2018}. A supressão da transição de fase cooperativa, observada nas análises de Área por Lipídio, é justificada por essa estabilidade entálpica global do sistema.
+
+
+
+\subsection{Interações Eletrostáticas (Energia de Coulomb) e o Papel Estrutural dos Íons}
+
+Enquanto as interações de Lennard-Jones demonstraram alta sensibilidade à fração de colesterol e ao empacotamento hidrofóbico das caudas acílicas, a análise das interações eletrostáticas (Energia de Coulomb) revela a extrema dependência do sistema em relação à hidratação e, fundamentalmente, à presença de íons na interface. A Figura \ref{fig:coulomb_comparativo} consolida a energia de Coulomb total para os diferentes regimes simulados.
+
+No Grupo 1 (Figura \ref{fig:coulomb_comparativo}, à esquerda), avaliando exclusivamente os sistemas puros sem adição de íons explícitos (barras em azul), nota-se que as energias eletrostáticas oscilam em magnitudes similares (entre $-600$ e $-850\text{ kJ/mol}$). Esta interação provém primariamente dos dipolos formados entre os grupos fosfato (negativos) e colina (positivos) das cabeças zwitteriônicas. O comportamento da energia segue uma correlação direta com a concentração de água na caixa: membranas com menor volume livre de solvente tendem a aproximar seus dipolos polares, fortalecendo a atração de Coulomb intrínseca $(U \propto 1/r)$.
+
+O fenômeno mais contundente do Grupo 1, contudo, é a estabilização energética massiva induzida pela ionização do solvente. A introdução de 0,15 M de NaCl no sistema provoca uma queda abrupta na energia de Coulomb (saltando para a casa dos $-2.700\text{ kJ/mol}$). Do ponto de vista biofísico, este decréscimo drástico não se deve apenas a um efeito de blindagem (\textit{screening}) eletrostática difusa, mas sim a interações específicas e diretas. A literatura demonstra que os cátions de sódio ($Na^+$) penetram a camada de hidratação primária e coordenam-se fortemente com os oxigênios carbonílicos e com os grupos fosfato das cabeças lipídicas de DPPC e DSPC \cite{bockmann2003, javanainen2017}. Ao fazerem isso, um único íon $Na^+$ pode interagir simultaneamente com múltiplos lipídios adjacentes, criando autênticas "pontes eletrostáticas" transientes que ancoram a interface \cite{bockmann2003}. Em contraste, os ânions cloreto ($Cl^-$) tendem a permanecer mais hidratados e periféricos na camada de difusão, estabilizando o potencial dipolar da membrana sem o mesmo grau de ligação direta \cite{reif2017}.
+
+É essa complexação interfacial que gera a enorme força atrativa eletrostática observada. Importa salientar que a correta modelagem deste efeito condensador induzido por íons é um desafio histórico em Dinâmica Molecular, onde muitos campos de força tendiam a superestimar a ligação iônica, criando matrizes artificialmente rígidas e supercompactadas \cite{venable2013, melcr2018}. Os dados obtidos demonstram que o modelo Martini 3 consegue capturar a estabilização elétrica massiva do $Na^+$ sem comprometer a integridade estrutural das fases lipídicas.
+
+No Grupo 2 (Figura \ref{fig:coulomb_comparativo}, à direita), a adição de concentrações crescentes de colesterol não introduz novas cargas formais, uma vez que o esterol é eletricamente neutro no modelo Martini. As diferenças nas magnitudes absolutas de energia observadas entre os sistemas pares decorrem, em grande parte, das variações no número total de partículas de água necessárias para manter as proporções estequiométricas nas caixas de simulação (conforme a Tabela 1). A despeito destas variações de escala volumétrica, a tendência de estabilização estrutural promovida pelos íons explícitos mantém-se proeminente, revelando que o colesterol atua essencialmente como um espectador no domínio de Coulomb, e que o sal preserva seu efeito de ancoragem independentemente da formação da fase líquida-ordenada ($L_o$) no núcleo hidrofóbico.
+
+
+\subsection{Análise Termodinâmica Global: Coulomb vs. Lennard-Jones}
+
+A análise comparativa das energias eletrostáticas (Coulomb, Figura \ref{fig:coulomb_comparativo}) e das forças de dispersão (Lennard-Jones, Figura \ref{fig:lj_comparativo}) permite distinguir os eixos termodinâmicos que governam a estabilidade da membrana. Os dados indicam que a interface polar e o núcleo apolar da bicamada respondem de forma distinta aos estresses térmicos e químicos.
+
+Conforme evidenciado pela Figura \ref{fig:coulomb_comparativo}, as interações de Coulomb apresentam dependência acentuada da composição iônica do solvente e do grau de hidratação. Enquanto as membranas puras em meio sem sal exibem energias de Coulomb limitadas pelas interações entre os dipolos das cabeças zwitteriônicas, a adição de NaCl induz uma estabilização eletrostática expressiva. Este decréscimo energético decorre da coordenação específica de iões $Na^+$ com os grupos carbonílicos e fosfato das cabeças lipídicas \cite{bockmann2003, javanainen2017}, formando pontes eletrostáticas que conferem maior coesão à interface.
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparativo_Coulomb_Exato.png}
+    \caption{Energias eletrostáticas (Coulomb) médias. O Grupo 1 (controles) demonstra o impacto da hidratação, enquanto o sistema com NaCl (vermelho) evidencia a estabilização por coordenação iónica. No Grupo 2, o colesterol não altera significativamente o domínio eletrostático devido à sua neutralidade elétrica.}
+    \label{fig:coulomb_comparativo}
+
+    \vspace{0.8cm}
+
+    \includegraphics[width=0.9\textwidth]{comparativo_LJ_Exato.png}
+    \caption{Energias de dispersão (Lennard-Jones) médias. O crescimento linear em degraus nos sistemas aquosos (Grupo 1) reflete a densidade do solvente. No Grupo 2, observa-se a estabilidade entálpica global: a condensação lateral induzida pelo colesterol não altera a energia de dispersão do sistema.}
+    \label{fig:lj_comparativo}
+\end{figure}
+
+Em contrapartida, as forças de Lennard-Jones (LJ) apresentam um perfil termodinâmico distinto, centrado na densidade de empacotamento. À esquerda da Figura \ref{fig:lj_comparativo}, observa-se uma variação linear da energia de dispersão com o aumento da hidratação, indicando que as contribuições LJ são ditadas majoritariamente pela rede de interações do solvente que permeia a interface.
+
+A análise do Grupo 2 na Figura \ref{fig:lj_comparativo} evidencia um resultado termodinâmico relevante: a redução da Área por Lipídio (APL) induzida pelo colesterol não altera significativamente a energia de Lennard-Jones total da caixa. Este comportamento indica uma compensação entálpica eficiente \cite{bennett2018}: a perda das interações de dispersão decorrente da expulsão de água da interface é compensada pelo ganho de contatos atrativos de van der Waals no núcleo hidrofóbico, decorrente do empacotamento linear (\textit{all-trans}) das cadeias acílicas \cite{kheyfets2015}. Em suma, a membrana mantém sua integridade estrutural ao ajustar sua composição entálpica para suportar variações na composição lipídica e na disponibilidade de solvente.
+
+
+\subsubsection*{Mecanismo de Condensação Lateral e Rigidez Interfacial }
+
+A constância energética aferida na Figura \ref{fig:lj_comparativo}, em contraste com a contração física da membrana, encontra explicação na mecânica estatística por intermédio das elaborações de Kheyfets e Mukhin referentes à Teoria de Cordas Flexíveis (\textit{Flexible Strings Model}) \cite{kheyfets2015}. A teoria postula que as caudas hidrocarbônicas dos fosfolipídios (DPPC e DSPC) podem ser tratadas como cordas vibrantes flexíveis, que oscilam impulsionadas pela energia térmica ($k_B T$), criando o volume livre associado à fase fluida ($L_\alpha$) \cite{kheyfets2015}.
+
+O colesterol, todavia, devido à sua arquitetura de anéis fundidos, atua mecanicamente como uma haste rígida (\textit{rigid rod}) \cite{kheyfets2015}. Quando os fosfolipídios da fase fluida partilham o confinamento com estas moléculas, sua capacidade de expansão lateral é reduzida. O colesterol suprime os graus de liberdade vibracionais das cadeias alquílicas circunvizinhas, limitando as flutuações e impondo uma retificação geométrica no arranjo hidrofóbico \cite{bennett2018}. É esse ordenamento físico das caudas, forçado pela presença do esterol, que justifica as alterações nas métricas de Área por Lipídio do modelo Martini e a formação da fase Líquida-Ordenada ($L_o$) \cite{bennett2018}.
+
+\subsubsection*{Compensação Entálpico-Entrópica e Otimização do Volume Apolar}
+
+Esta ausência de variação macroscópica no Grupo 2 da Figura \ref{fig:lj_comparativo} indica que o rearranjo arquitetônico promovido pelo colesterol é termodinamicamente isoperibólico e altamente eficiente. O passivo entálpico da caixa computacional mantém-se intacto porque a inserção do colesterol desencadeia dois vetores mecânicos massivos que se opõem e se anulam:
+
+\begin{enumerate}
+    \item \textbf{A Maximização do Ganho de Empacotamento Local:} O cerceamento vibratório força as caudas lipídicas a adotarem conformações alongadas (arranjos \textit{all-trans}) \cite{bennett2018}. Esta topografia alongada molda-se em perfeita harmonia complementar aos anéis retos do colesterol \cite{leeb2018}. Esta colagem paralela otimiza assombrosamente o contato apolar, promovendo uma multiplicação radical nas forças de atração de Lennard-Jones nas porções profundas da membrana \cite{bennett2018}.
+    
+    \item \textbf{O Débito e Custo de Expulsão Hídrica Superficial:} A severa condensação lateral (\textit{Efeito Condensador}) acarreta no enxugamento da superfície exposta \cite{leeb2018}. Frações da água que antes penetravam na interface são mecanicamente ejetadas. Esta expulsão impõe uma considerável perda de ricas interações de dispersão estabelecidas entre o solvente e as cabeças polares.
+\end{enumerate}
+
+Em suma, a modelagem demonstra que a integridade da membrana sob forte presença de colesterol é alcançada pela mecânica estatística. A drástica redução da Área por Lipídio expulsa uma grande  quantidade de moléculas de água da interface, o que deveria acarretar em uma perda massiva de interações de dispersão (empurrando a energia para valores muito menos negativos). Contudo, a energia de Lennard-Jones da caixa inteira sofreu um déficit (passando de $\approx -304.000\text{ kJ/mol}$ no Controle para $\approx -290.000\text{ kJ/mol}$ a 40\% de Colesterol, uma perda de apenas $\approx 4,5\%$). Este amortecimento atesta que o ganho de atração molecular estabelecido no confinamento do núcleo hidrofóbico ($U \propto -1/r^6$) "pagou" quase que na totalidade o elevado débito da dessolvatação superficial. A membrana sacrifica uma pequena fração da sua entalpia global para consolidar a rigidez mecânica, tornando a fase líquida-ordenada ($L_o$) termodinamicamente viável e protegendo a membrana de flutuações estruturais severas.
+
+\subsection{Fundamentação Energética da Metaestabilidade: A Barreira de Dessolvatação}
+
+A investigação do comportamento termotrópico de domínios lipídicos purificados, focada na evolução do modelo de DSPC sob alta hidratação (45 W/L), evidenciou uma limitação cinética comum em modelos de \textit{coarse-graining}: o aprisionamento da matriz estrutural em um estado de líquido super-resfriado. Em temperaturas abaixo da transição (entre 290 K e 300 K), as simulações indicaram que a membrana de DSPC manteve sua área lateral em aproximadamente $61,5\text{ \AA}^2$. O sistema não atingiu a transição espontânea para a fase gel sólida ($L_\beta$), que exigiria uma compactação para valores próximos a $45,0\text{ \AA}^2$, transição esta observada apenas a partir de 310 K.
+
+A justificativa para essa metaestabilidade — caracterizada pela inibição da nucleação cooperativa — baseia-se na penalidade energética da dessolvatação, refletida nas variações das energias de Lennard-Jones observadas nas trajetórias \cite{kowalik2015}.
+
+Durante o período em que a membrana permanece no estado fluido super-resfriado, a área interfacial dilatada permite que moléculas de água e íons ocupem os interstícios dos grupos polares das cabeças lipídicas. Esta hidratação estabelece um conjunto de interações atrativas com o solvente, favorável entalpicamente. Para que a membrana cristalize na fase gel, é necessário que ocorra uma compressão lateral que expulse a rede hídrica do volume de hidratação primária \cite{kowalik2015}.
+
+A necessidade de remover essa estrutura atrativa consolidada pelo solvente estabelece um limite cinético conhecido na literatura de interfaces e biomembranas como "Força de Repulsão por Hidratação" (\textit{Hydration Repulsion Force}).
+
+\subsubsection*{O Paralelismo Biofísico: Energia de Fusão de Membranas e Desidratação Interfacial}
+
+A natureza repulsiva dessa barreira energética não se restringe à cristalização, sendo um princípio fundamental em processos biológicos como a fusão vesicular, a neurotransmissão e a exocitose mediada pelo complexo SNARE. Medições em escala nanométrica indicam que, quando duas bicamadas lipídicas se aproximam a distâncias de 2 a 3 nm, ocorre uma repulsão expressiva sustentada pelas camadas de moléculas de água aprisionadas entre as superfícies hidrofílicas \cite{krok2024}. A superação dessa repulsão eleva consideravelmente a energia livre do sistema.
+
+A remoção dessa camada hídrica repulsiva — etapa necessária para promover a fusão das monocamadas através da formação de estruturas de haste (\textit{stalk formation}) — constitui a etapa com maior energia de ativação nos eventos de fusão biológica.
+
+A mecânica desta repulsão hídrica traça um paralelo direto com os obstáculos estruturais da transição de fase termotrópica $L_\alpha \rightarrow L_\beta$. Protocolos experimentais de desidratação controlada demonstraram que a remoção mecânica da película de água interfacial atua como o principal fator necessário para induzir o reordenamento geométrico das caudas hidrofóbicas dos lipídios \cite{krok2024}.
+
+Na ausência da solvatação ideal, o volume livre esférico antes ocupado pela água é drasticamente reduzido. Sob esse confinamento, as caudas lipídicas tendem a adotar conformações mais alongadas e linearizadas (o padrão estérico \textit{trans}). Ocorre, então, uma transição induzida: a fase previamente desordenada adota características estereoquímicas de maior densidade e rigidez, próprias da fase gel \cite{krok2024}.
+
+Portanto, os dados sugerem que a metaestabilidade observada para o DSPC traduz a inércia do sistema em romper a sua camada de hidratação interfacial favorável \cite{katira2015}. O sistema não colapsa para o empacotamento hexagonal (gel) porque tal processo exigiria uma quebra em larga escala das interações com a água, acarretando uma penalidade entálpica nas forças de Lennard-Jones que não é compensada de forma suficientemente rápida pelas interações polares posteriores (Energia de Coulomb).
+
+
+\subsubsection*{A Sensibilidade Topológica do Mapeamento Martini 3}
+
+A inércia metaestável observada para o DSPC contrasta com o comportamento do DPPC, que atinge o estado de equilíbrio cristalino com maior prontidão nas mesmas condições de temperatura. Essa diferença nos resultados destaca a influência da filosofia de mapeamento adotada no campo de força \textit{coarse-grained} Martini 3. Para reproduzir com precisão as temperaturas de transição de fase e a variação da espessura da bicamada, o modelo utiliza parâmetros distintos para as caudas acílicas de 16 átomos de carbono (DPPC) e 18 átomos de carbono (DSPC) \cite{marrink2022, ramirez2025}.
+
+No esquema de parametrização adotado, as caudas de 16 carbonos do DPPC são modeladas com contas de menor raio de exclusão (\textit{small beads}) na região adjacente à porção éster \cite{marrink2022}. Esta estratégia visa reduzir constrangimentos volumétricos que poderiam retardar a nucleação das cadeias de menor comprimento. O DSPC, devido à sua estrutura alongada, é parametrizado com contas de diâmetro regular (\textit{regular beads}) ao longo da cadeia.
+
+O uso de contas de maior raio de interação para o DSPC \cite{liu2012} aumenta a probabilidade de contatos estéricos internos no estado fluido expandido. Consequentemente, o sistema requer maior energia para que as cadeias se alinhem e atinjam o empacotamento. Esta inércia estrutural amplia a barreira cinética necessária para a expulsão de água da interface, mantendo os lipídios $C_{18}$ (DSPC) em um estado metaestável (líquido super-resfriado) durante o tempo de simulação.
+
+
+\subsection{Perspectiva Biofísica e Cálculo Quantitativo da Barreira de Dessolvatação}
+
+A barreira de dessolvatação e a consequente metaestabilidade observadas nas simulações podem ser quantificadas de forma precisa através da termodinâmica dos estados, utilizando o sistema de hidratação intermediária (27W\_L) como modelo estatístico. Diferente do regime de alta hidratação (que apresenta metastabilidade apenas para o sistema puro), o regime 27W\_L oferece uma robustez analítica superior ao exibir cinco pontos de retenção cinética distribuídos em duas estequiometrias distintas: no DSPC puro (0:100) e na mistura rica em DSPC (25:75).
+
+A literatura ressalta que o balanço fino das interações não covalentes, especialmente a calibração das forças de dispersão de Lennard-Jones, é o principal motor para o empacotamento termodinamicamente correto das cadeias hidrocarbônicas \cite{liu2012}. Utilizando os dados exatos de transição mapeados na Tabela \ref{tab:dados_brutos_energias} do Anexo, é possível calcular o custo entálpico macroscópico associado a esta barreira. A diferença entre a energia global de Lennard-Jones no estado de líquido super-arrefecido (quando a membrana está expandida e ancorada na água) e a fase gel nucleada revela a magnitude exata do "pedágio" pago pelo sistema para expulsar a água interfacial.
+
+Para a mistura 25:75 (DPPC:DSPC), o sistema transita do estado metaestável a 300 K para a fase gel em 310 K. A energia global de Lennard-Jones salta de $-198.860,0$ kJ/mol para $-178.349,7$ kJ/mol. Esta variação resulta em um custo de dessolvatação de $+102,6$ kJ/mol por cada um dos 200 lipídios da caixa. Para o sistema de DSPC puro (0:100), que cristaliza apenas a 320 K ($-176.762,1$ kJ/mol), as barreiras entálpicas mensuradas a partir dos estados metaestáveis a 290 K, 300 K e 310 K foram de $+121,0$, $+112,5$ e $+102,5$ kJ/mol por lipídio, respectivamente, consolidando um pedágio médio de $\approx +112,0$ kJ/mol por molécula.
+
+Esta análise estatística aprimorada comprova de forma irrefutável que a barreira de nucleação é estritamente proporcional ao volume de solvente disponível. Enquanto no sistema de alta hidratação (45W\_L) a penalidade entálpica média atingia valores extremos de até $\approx +188,8$ kJ/mol por molécula, a redução do volume de água livre no sistema 27W\_L fez com que o "pedágio" médio global caísse para $\approx +109,0$ kJ/mol por lipídio. A atração transversal nas cadeias acílicas não consegue superar de forma espontânea sequer esta barreira atenuada nas escalas de tempo simuladas, explicando a retenção cinética da membrana.
+
+A conformação geométrica inerente aos lipídios corrobora este impasse \cite{lee2022}. Fosfolipídios saturados possuem uma topologia essencialmente cilíndrica, o que favorece a formação de um arranjo lamelar compactado \cite{lee2022}. Contudo, a água aprisionada entre os grupos polares dilatados gera uma forte repulsão estérica e de hidratação, que age fisicamente como a formidável barreira entálpica calculada acima.
+
+É neste rigoroso cenário termodinâmico que a ação do colesterol se mostra biofisicamente elegante. A inserção do esterol não apenas suprime a barreira de cristalização, mas induz ativamente a formação da fase líquida-ordenada ($L_o$), que exibe subestruturas de empacotamento hexagonal local das cadeias \cite{sodt2014}. Este arranjo arquitetônico permite que as caudas apolares alcancem uma densidade comparável à fase gel, enquanto os anéis rígidos do colesterol ocupam regiões intersticiais \cite{liu2012, sodt2014}. 
+
+Consequentemente, o colesterol atua como um "atalho" termodinâmico evolutivo. Ao estruturar domínios locais de ordem hexagonal, ele estabiliza mecanicamente o núcleo da membrana sem exigir a expulsão violenta do solvente interfacial, isentando o sistema biológico de pagar o severo custo de dessolvatação (que variou de $102$ a $188$ kJ/mol dependendo da hidratação). Essa adaptação estrutural garante uma matriz densamente empacotada que simultaneamente retém a solvatação necessária para a funcionalidade biológica celular.
+
+\subsection{Impacto da Resolução do Modelo e Geometria Molecular na Metaestabilidade}
+
+A análise comparativa entre as bicamadas puras de DPPC (16 carbonos) e DSPC (18 carbonos) sob alta hidratação (45W\_L) revela que a suscetibilidade à metaestabilidade é estritamente dependente da arquitetura molecular e da calibração do modelo \textit{coarse-grained} \cite{ramirez2025}. Enquanto o DPPC puro cristaliza prontamente para a fase gel em baixas temperaturas (atingindo APL $\approx 44,8 \text{ \AA}^2$ a 290 K), o DSPC puro permanece retido na Área por Lípido da montagem inicial do sistema ($\approx 61,5 \text{ \AA}^2$). 
+
+A origem estrutural desta divergência reside na diferença de dois carbonos nas cadeias acílicas e na forma como o campo de forças Martini 3 as parametriza. A otimização termodinâmica do Martini 3 introduziu contas reduzidas (\textit{small beads}) para mapear os carbonos do DPPC adjacentes ao grupo éster, garantindo um volume colisional menor \cite{marrink2022, ramirez2025}. Em contrapartida, a cadeia de 18 carbonos do DSPC é parametrizada integralmente com contas de tamanho regular. O maior raio de Lennard-Jones destas contas aumenta o atrito estérico interno. Quando o sistema parte de uma configuração expandida, a inércia destas contas maiores dificulta a reorientação necessária para a interdigitação, criando uma severa armadilha cinética \cite{ramirez2025}. A retenção neste estado metaestável é um fenómeno intrínseco aos modelos CG para transições de fase lipídicas, sendo frequentemente reportado que a dinâmica molecular clássica carece de amostragem avançada (como o \textit{Replica Exchange}) para transpor estas barreiras em tempo computacional útil \cite{piskulich2022}.
+
+Além do constrangimento cinético, a retenção do DSPC expõe uma característica termodinâmica clássica de líquidos super-arrefecidos, capturada através da calorimetria computacional da bicamada \cite{rodgers2012}. Analisando a variação energética do DSPC puro em 45W\_L (Tabela \ref{tab:dados_brutos_energias} do Anexo), a energia global reduz de $-299.798,0$ kJ/mol (a 300 K) para $-302.079,2$ kJ/mol (a 290 K). Esta variação para a caixa equivale a um decréscimo de $\approx 11,4$ kJ/mol por molécula para um intervalo de 10 K. 
+
+Esta taxa de variação ($\Delta E / \Delta T \approx 1,14$ kJ/mol/K) representa numericamente a \textbf{capacidade calorífica ($C_p$)} aparente do sistema. A extração do $C_p$ diretamente a partir de simulações tem sido amplamente validada para demonstrar a fidelidade termodinâmica dos modelos \textit{Coarse-Grained} \cite{rodgers2012}. O valor computado prova que a membrana de DSPC metaestável não sofreu o calor latente característico de uma transição de fase, mas está a arrefecer de forma contínua como um fluido clássico.
+
+Por fim, a profunda barreira de nucleação que causa esta histerese térmica é justificada pela física estatística das transições de ordem-desordem. Estudos avançados demonstram que a fase cristalina de bicamadas lipídicas exibe ordem \textit{hexática} \cite{katira2015}. A transição de um estado líquido para uma fase hexática é uma transição de primeira ordem que exige uma complexa quebra de simetria e a aniquilação de defeitos topológicos na malha da membrana \cite{katira2015}. 
+
+Este processo cooperativo já é cineticamente custoso por natureza, mas é exacerbado pelas limitações de resolução espacial do próprio mapeamento CG. Ao agrupar quatro átomos numa única conta, o modelo suaviza a paisagem de energia livre e elimina graus de liberdade microscópicos cruciais (como as isomerizações \textit{trans-gauche} átomo-a-átomo) \cite{marrink2022}. Embora essa suavização acelere a difusão lateral \cite{marrink2022}, remove as micro-vibrações que auxiliam o sistema a encontrar o caminho ótimo de empacotamento, resultando nas barreiras de dessolvatação extremas observadas e aprisionando a matriz no seu estado fluido inicial. A Tabela \ref{tab:comp_resolucao} sumariza estas diferenças termodinâmicas e estruturais.
+
+\begin{table}[htpb]
+\centering
+\caption{Comparativo Estrutural e Termodinâmico: DPPC vs. DSPC sob Alta Hidratação (45W\_L). A retenção da APL no DSPC reflete a montagem inicial do sistema aliada à maior inércia das contas regulares.}
+\label{tab:comp_resolucao}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Parâmetro} & \textbf{DPPC Puro (100:0)} & \textbf{DSPC Puro (0:100)} \\ \midrule
+Comprimento da Cadeia Acílica & 16 Carbonos & 18 Carbonos \\
+Mapeamento Martini 3 (CG) & Contas Pequenas (\textit{Small Beads}) & Contas Regulares \\
+Total de Lipídios & 200 & 200 \\
+Total de Partículas de Água & 9.000 & 9.000 \\
+APL Inicial (Grade de Montagem) & $\approx 61,5 \text{ \AA}^2$ & $\approx 61,5 \text{ \AA}^2$ \\
+APL Experimental (Fase Gel) \cite{lee2022} & $\approx 47,4 \text{ \AA}^2$ & $\approx 48,0 \text{ \AA}^2$ \\
+APL Simulada a 290 K & $\approx 44,8 \text{ \AA}^2$ (Gel Cristalizado) & $\approx 62,5 \text{ \AA}^2$ (Metaestável) \\
+Comportamento Termodinâmico & Nucleação Espontânea & Líquido Super-resfriado \\
+Capacidade Calorífica ($C_p$) Aparente & N/A (Ocorreu Transição) & $\approx 1,14$ kJ/mol/K \\ \bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=\textwidth]{grafico_capacidade_calorifica.png}
+    \caption{Assinatura termodinâmica da metaestabilidade para o DSPC puro sob alta hidratação (45W\_L). O eixo esquerdo (vermelho) exibe a energia de Lennard-Jones normalizada por lipídio, enquanto o direito (azul tracejado) mostra a APL. Na zona metaestável (cinza), a membrana permanece travada na APL expandida, enquanto a energia cai de forma perfeitamente linear, revelando a capacidade calorífica ($C_p \approx 1,14$ kJ/mol/K) de um líquido em resfriamento, sem a quebra abrupta característica da cristalização.}
+    \label{fig:capacidade_calorifica}
+\end{figure}
+
+
+\subsection{O Papel do Comprimento da Cadeia e a Cooperatividade na Barreira de Nucleação}
+
+A retenção exclusiva do sistema de DSPC puro (18 carbonos) no estado metaestável, em contraste com a cristalização espontânea observada no sistema homólogo de DPPC puro (16 carbonos) sob as mesmas condições de alta hidratação (45W\_L), evidencia a extrema sensibilidade da barreira de nucleação à arquitetura molecular e aos efeitos cooperativos da bicamada. 
+
+Embora a diferença estrutural seja de apenas dois carbonos por cadeia acílica, a parametrização desta diferença no campo de força Martini 3 altera drasticamente a inércia do sistema. Conforme a topologia do modelo, o DPPC utiliza contas reduzidas (\textit{small beads}) para representar os carbonos adjacentes à interface polar, diminuindo o volume de exclusão estérico \cite{liu2012}. O DSPC, por sua vez, é integralmente mapeado com contas de tamanho regular. Quando a bicamada de DSPC, composta por 200 lipídios, tenta transicionar da APL expandida ($\approx 61,5 \text{ \AA}^2$) para a fase gel ($\approx 45 \text{ \AA}^2$), o maior raio de colisão destas contas regulares aumenta severamente o atrito interno e a sobreposição estérica durante a compressão lateral.
+
+Esta resistência geométrica amplifica o custo termodinâmico para expulsar a água interfacial. Conforme evidenciado por estudos recentes em nanoescala sobre a desidratação controlada de membranas \cite{krok2024}, a remoção da água da interface primária impõe um estresse estrutural e um elevado pedágio energético. Como calculado anteriormente, o DSPC exige um custo entálpico de $\approx +183,1$ kJ/mol por molécula para desidratar a interface e alinhar as caudas. É neste ponto que a quantidade de lipídios no sistema (200 moléculas) se torna o fator determinante para a metaestabilidade devido à natureza da \textit{nucleação cooperativa}.
+
+Transições de fase em membranas não ocorrem através de moléculas isoladas, mas exigem a formação de um "núcleo crítico" --- um agrupamento coordenado de dezenas de lipídios que superam a barreira simultaneamente. Simulações pioneiras de \textit{coarse-graining} sobre a formação da fase gel demonstram que este processo de nucleação e crescimento de domínio é estritamente cooperativo \cite{marrink2005}. Adicionalmente, a cinética desta transição é intrinsicamente modulada pelo nível de hidratação da interface \cite{kowalik2015}. Considerando que a energia térmica flutuante do sistema ($k_B T$) a 300 K fornece apenas cerca de $2,5$ kJ/mol de energia cinética por grau de liberdade, a probabilidade estatística de um agrupamento de lipídios de DSPC obter espontaneamente a energia necessária (múltiplos de $183$ kJ/mol) para romper a sua rede de hidratação é infinitesimal nas escalas de tempo da Dinâmica Molecular. Esta oposição impõe uma barreira termodinâmica coletiva intransponível, aprisionando a membrana estruturalmente \cite{raudino2011}.
+
+No caso do DPPC, a ausência do volume estérico adicional (graças às \textit{small beads}) e a menor área de superfície de interação de van der Waals reduzem significativamente este custo individual de dessolvatação. Consequentemente, a energia térmica ($k_B T$) consegue promover as flutuações necessárias para formar o núcleo crítico, permitindo que a "onda" de cristalização se propague cooperativamente por todos os 200 lipídios da caixa, um mecanismo dinâmico e cinético suportado pela literatura de modelagem \cite{marrink2005, kowalik2015}. 
+
+Portanto, a divergência metaestável observada nas simulações atesta que o incremento de apenas dois carbonos na cauda hidrofóbica é suficiente para elevar a barreira de ativação de dessolvatação a um patamar que suplanta as flutuações térmicas disponíveis, aprisionando a totalidade do sistema macroscópico em um poço de potencial local (líquido super-resfriado).
+
+
+\subsection{Capacidade Calorífica e o Efeito Estrutural da Diferença de Dois Carbonos}
+
+Além da barreira entálpica de nucleação, os dados extraídos do regime de hidratação intermediária (27W\_L) permitem a quantificação de uma segunda propriedade termodinâmica fundamental: a Capacidade Calorífica à pressão constante ($C_p = \Delta E / \Delta T$). O acompanhamento da energia no estado metaestável antes da transição de fase revela como o encurtamento da cadeia acílica em uma fração dos lipídios altera a absorção de energia do sistema (Tabela \ref{tab:dados_brutos_energias} do Anexo).
+
+Para o sistema de DSPC puro (200 lipídios com cadeias de 18 carbonos), a variação energética de Lennard-Jones dentro da zona metaestável (290 K a 310 K) resultou em um $C_p$ aparente médio de $\approx 0,92$ kJ/mol/K. Inicialmente, é notável que este valor seja inferior ao $C_p$ observado sob alta hidratação (45W\_L, onde $C_p \approx 1,14$ kJ/mol/K). Esta redução comprova que uma fração significativa da energia térmica absorvida pela bicamada metaestável é, na verdade, dissipada nos graus de liberdade vibracionais e translacionais da complexa rede de hidratação aprisionada na interface. Ao se reduzir a água de 45W para 27W, a capacidade calorífica global declina.
+
+O fenômeno mais revelador, contudo, surge na análise da mistura 25:75 (DPPC:DSPC). Neste sistema, a estequiometria dita a substituição de 50 lipídios de DSPC por 50 moléculas de DPPC. Embora a diferença homóloga seja de apenas dois carbonos por cadeia (o que totaliza uma redução de 100 carbonos apolares na caixa de simulação), o mapeamento do Martini 3 traduz isso na substituição de contas regulares de alto volume por \textit{small beads} na porção superior das caudas.
+
+Os cálculos termodinâmicos demonstram que esta sutil substituição de volume reduziu o $C_p$ da mistura metaestável (entre 290 K e 300 K) para $\approx 0,68$ kJ/mol/K. Esta correlação direta entre o encurtamento da cadeia e a queda da capacidade calorífica encontra robusta validação experimental na literatura biocalorimétrica. Heerklotz e Epand (2001), através de estudos de calorimetria isotérmica, demonstraram que a entalpia de empacotamento e a capacidade calorífica de fosfolipídios são medidas fenomenológicas estritamente dependentes da Área de Superfície Apolar ($ASA_{ap}$) e do número de grupos metileno das cadeias acílicas \cite{heerklotz2001}. 
+
+Sob a ótica da mecânica estatística, a diminuição da capacidade calorífica no sistema misto reflete exatamente esta constatação experimental: a redução da superfície hidrofóbica faz com que o sistema possua menos graus de liberdade (menor inércia estérica e menor superfície de van der Waals) para dissipar a energia térmica em excitações vibracionais. Consequentemente, a energia inserida pelo banho térmico $(k_B T)$ é canalizada de forma mais eficiente para as flutuações coordenadas que formam o núcleo crítico de cristalização.
+
+Isso explica de forma irrefutável o comportamento cinético observado nas trajetórias: enquanto o DSPC puro, com sua extensa área apolar e alto atrito estérico ($C_p \approx 0,92$ kJ/mol/K), "gasta" a energia térmica internamente e permanece retido na zona metaestável até 320 K, a mistura com apenas 25\% de cadeias mais curtas ($C_p \approx 0,68$ kJ/mol/K) otimiza o uso da energia e consegue superar a barreira de dessolvatação de forma precoce, cristalizando espontaneamente a 310 K.
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=\textwidth]{grafico_cp_27w.png}
+    \caption{Comparativo termodinâmico da Capacidade Calorífica ($C_p$) sob hidratação intermediária (27W\_L). As zonas em cinza delimitam o estado metaestável (líquido super-resfriado). À esquerda, o sistema de DSPC puro apresenta alta inércia estérica ($C_p \approx 0,92$ kJ/mol/K), retardando a cristalização até 320 K. À direita, a substituição de 50 lipídios de DSPC por DPPC (encurtamento de 2 carbonos utilizando \textit{small beads}) reduz a capacidade de dissipação térmica do sistema ($C_p \approx 0,68$ kJ/mol/K), permitindo que a energia seja utilizada de forma mais cooperativa, antecipando a nucleação da fase gel para 310 K.}
+    \label{fig:capacidade_calorifica_27w}
+\end{figure}
+
+
+\section{Discussão Integrada: Protocolos de Simulação, Hidratação e o Papel do Colesterol}
+
+Os resultados obtidos através das simulações de Dinâmica Molecular utilizando o campo de força Martini 3 demonstram a notável capacidade do modelo em capturar a termodinâmica complexa das misturas de DPPC e DSPC. A literatura recente tem validado extensamente o campo de força Martini 3 na modelagem de nanopartículas lipídicas e membranas biológicas, destacando sua precisão para descrever propriedades termodinâmicas e transições de fase de sistemas multicomponentes \cite{kjolbye2024}. Nossos dados de Área por Lipídio (APL) e espessura transversal (Figura 13) estão em excelente concordância com os perfis termotrópicos experimentais. Esta validação atesta a robustez do mapeamento escolhido para as caudas acílicas no modelo de granulação grossa, que é essencial para modelar de forma precisa as interações não covalentes e as transições termodinâmicas macroscópicas \cite{kjolbye2024}.
+
+\subsection{O Custo Termodinâmico da Dessolvatação e a Metaestabilidade do DSPC}
+
+Um dos fenômenos mais críticos expostos pelos nossos dados de APL é a metaestabilidade anômala do sistema de DSPC puro sob alta hidratação (45W\_L), que reteve a configuração de um líquido super-resfriado nas temperaturas de 290 K e 300 K (Figura 2 e Tabela 7). Esta barreira cinética para a cristalização é governada por uma severa penalidade de dessolvatação, onde a energia global de dispersão do solvente opõe grande resistência mecânica e entálpica à compactação lipídica. A estrutura tridimensional e a organização dinâmica da água interfacial exigem uma energia de ativação maciça para que as moléculas de água sejam extirpadas durante a compressão lateral, um princípio termodinâmico idêntico ao que dita as imensas barreiras nucleares na formação e estabilidade de poros hidrofílicos transmembranares \cite{hu2015, rivel2025}. O rearranjo local e a desestabilização estocástica dessa complexa rede hídrica são imprescindíveis para qualquer alteração estrutural profunda na arquitetura da membrana \cite{yurtsever2026}.
+
+Essa oposição mecânica exercida pelo solvente fica irrefutável em nossos resultados sob restrição de hidratação. Ao submetermos o mesmo sistema ao regime de baixa hidratação (15W\_L, Figura 3), a supressão do volume de exclusão de água desmoronou a barreira de dessolvatação. Isso culminou na cristalização livre e quase instantânea da fase gel, confirmando que a camada de hidratação atua como a principal amarra cinética, controlando a maleabilidade rotacional e a estabilidade da montagem lipídica \cite{yurtsever2026}.
+
+
+\subsection{O Papel do Colesterol e a Indução da Fase Líquida-Ordenada}
+
+A inclusão de colesterol nas formulações simuladas confirmou seu potente efeito condensador e regulador. Conforme evidenciado pelas nossas topologias e perfis (Figuras 8, 10, 11 e 12), as concentrações de 30\% e 40\% em mol de colesterol inibem por completo a transição de fase cooperativa em saltos, induzindo a bicamada a uma fase líquida-ordenada ($L_o$) inabalável frente ao gradiente térmico testado. Essa densificação maciça é devidamente suportada pelos recentes refinamentos do modelo de colesterol no Martini 3, otimizado para reproduzir o alto grau de empacotamento lateral com as cadeias acílicas e para ditar as modulações na espessura da membrana \cite{borges2023}.
+
+Além do espessamento estrutural, a literatura indica que o colesterol estabiliza os estresses de interface e exibe um perfil notavelmente termofóbico, migrando para as zonas mais empacotadas e frias da bicamada quando sob gradientes de temperatura \cite{deng2026}. O núcleo da membrana, agora enriquecido pelos rígidos anéis de esterol, blinda fisicamente as caudas flexíveis dos fosfolipídios. Ao interpor-se na interface, o colesterol substitui e neutraliza a dominância opressiva das interações com a água estruturada, atenuando as penalidades de dessolvatação que outrora induziam os sistemas puros à metaestabilidade \cite{borges2023, deng2026}.
+
+
+\bibliographystyle{unsrtnat} 
+\bibliography{referencias}
+
+\newpage % Opcional, para garantir que o anexo comece em uma página nova
+\input{anexos.tex}
+
+\end{document}
+

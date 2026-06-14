@@ -1,0 +1,59 @@
+\section{Metodologia}
+
+A Dinâmica Molecular (DM) consolidou-se como uma ferramenta computacional indispensável na biofísica moderna e no desenho de materiais biológicos. O rigor desta técnica na avaliação de estabilidade estrutural, energias de interação e flutuações termodinâmicas tem sido amplamente demonstrado em estudos recentes, destacando-se na prospecção e reposicionamento de fármacos contra alvos virais complexos \cite{cardoso2021, colherinhas2025}.
+
+Embora abordagens totalmente atomísticas (\textit{All-Atom}) ofereçam uma resolução química detalhada, a investigação de propriedades termodinâmicas macroscópicas em membranas lipídicas — como transições de fase e metaestabilidade — exige escalas de tempo e tamanho que frequentemente superam os limites do regime atomístico. Desta forma, o presente trabalho adapta a robustez metodológica da DM para o regime de simplificação molecular (\textit{Coarse-Graining}), visando contornar as barreiras cinéticas inerentes à nucleação lipídica.
+
+\subsection{Modelo Coarse-Grained e Mapeamento Topológico}
+
+A modelagem foi conduzida utilizando o campo de força Martini 3, empregando protocolos de otimização de parâmetros detalhados na literatura recente para a biblioteca de lipídios (\textit{Lipidome}) \cite{marrink2022, pedersen2024}. 
+
+No esquema de mapeamento adotado, as caudas acílicas de 16 átomos de carbono (DPPC) foram parametrizadas utilizando contas de menor raio de exclusão (\textit{small beads}) nos três carbonos adjacentes à porção éster, mitigando constrangimentos volumétricos exagerados que poderiam inibir a nucleação. Em contrapartida, as caudas estéricas de 18 carbonos (DSPC) foram modeladas integralmente com contas de diâmetro regular (\textit{regular beads}) \cite{pedersen2024}. Além disso, os grupos éster foram mapeados juntamente com o carbono adjacente do glicerol em uma conta do tipo SN4a. Este refinamento paramétrico é determinante para a captura precisa da espessura da bicamada e da temperatura de transição de fase cooperativa ($T_m$).
+
+\subsection{Construção dos Sistemas e Controle de Hidratação}
+
+As configurações iniciais das bicamadas, contendo 200 lipídios (para os sistemas puros e binários de controle), foram construídas utilizando a ferramenta \textit{Insane} (INteractive Setup and ANalysis Environment) \cite{wassenaar2015}.
+
+Para estabelecer o limite superior do gradiente hídrico (alta hidratação, 45 W/L), parametrizou-se uma camada inicial de solvatação de 3 nm em ambas as faces da membrana. A construção dos regimes de média (27 W/L) e baixa hidratação (15 W/L) obedeceu à mesma diretriz de montagem, alterando-se exclusivamente o parâmetro $z$ (\textit{box height}) no algoritmo \textit{Insane} para adequar o confinamento espacial à hidratação pretendida. 
+
+Uma vez que a inserção de solvente pelo método estocástico do \textit{Insane} acarreta pequenas flutuações na quantidade absoluta de moléculas de água entre diferentes montagens da mesma caixa, as topologias foram submetidas a uma etapa de inspeção. As moléculas de água excedentes foram rigorosamente extirpadas dos arquivos de coordenadas (\textit{.gro}) e topologia (\textit{.top}) finais. Este procedimento garantiu a manutenção exata das estequiometrias propostas para todas as réplicas, neutralizando desvios induzidos pelo algoritmo.
+
+A Tabela \ref{tab:sistemas_simulados} detalha a composição molecular, o inventário total de partículas (\textit{beads}) e a evolução volumétrica das caixas de simulação.
+
+\begin{table}[htpb]
+    \centering
+    \caption{Composição estequiométrica, número de partículas e dimensões das caixas (Inicial e Final) para os sistemas simulados.}
+    \label{tab:sistemas_simulados}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{lccccccc}
+        \hline
+        Sistema & Lipídios & CHOL & Água (W) & Íons (Na/Cl) & Total de Átomos & Caixa Inicial (nm) & Caixa Final (nm) \\
+        \hline
+        15W\_L & 200 & 0 & 3000 & 0 & 3150 & 8.00 $\times$ 8.00 $\times$ 6.30 & 6.68 $\times$ 6.68 $\times$ 7.05 \\
+        27W\_L & 200 & 0 & 5400 & 0 & 7925 & 8.00 $\times$ 8.00 $\times$ 14.48 & 7.40 $\times$ 7.40 $\times$ 16.78 \\
+        45W\_L & 200 & 0 & 9000 & 0 & 11400 & 8.00 $\times$ 8.00 $\times$ 20.50 & 6.76 $\times$ 6.76 $\times$ 29.54 \\
+        CHOL 0 & 121 & 0 & 9680 & 0 & 12584 & 8.50 $\times$ 8.50 $\times$ 20.50 & 7.93 $\times$ 7.93 $\times$ 23.55 \\
+        CHOL 0 salt & 240 & 0 & 9400 & 112/112 & 12584 & 8.50 $\times$ 8.50 $\times$ 20.50 & 7.39 $\times$ 7.39 $\times$ 25.91 \\
+        CHOL 3 & 115 & 5 & 9600 & 0 & 12450 & 8.50 $\times$ 8.50 $\times$ 20.50 & 7.85 $\times$ 7.85 $\times$ 23.71 \\
+        CHOL 4 salt & 230 & 10 & 9376 & 112/112 & -- & 8.50 $\times$ 8.50 $\times$ 20.50 & -- \\
+        CHOL 30 & 83 & 37 & 9600 & 0 & 12258 & 8.50 $\times$ 8.50 $\times$ 20.50 & 7.16 $\times$ 7.16 $\times$ 27.73 \\
+        CHOL 40 salt & 144 & 96 & 9372 & 114/114 & 12192 & 8.50 $\times$ 8.50 $\times$ 20.50 & 6.95 $\times$ 6.95 $\times$ 27.78 \\
+        \hline
+    \end{tabular}%
+    }
+\end{table}
+
+
+\subsection{Protocolo de Simulação Termodinâmica}
+
+Todas as simulações de Dinâmica Molecular foram conduzidas no pacote GROMACS v2024.1 sob condições periódicas de contorno (PBC). 
+
+A minimização geométrica dos sistemas foi seguida por um rigoroso protocolo de equilíbrio termodinâmico em quatro estágios. Durante esta fase, o passo de integração de tempo (\textit{timestep}) foi progressivamente elevado de 5 fs para 20 fs, permitindo o relaxamento suave do empacotamento interfacial. Cada sistema foi submetido a uma etapa suplementar de equilíbrio de 20 ns, assegurando a termalização robusta da membrana em seu respectivo banho térmico alvo (de 280 K a 350 K, dependendo da transição de fase do modelo).
+
+As trajetórias de produção totalizaram 200 ns de simulação não-restrita. A integração das equações de movimento foi realizada a cada 20 fs, com o armazenamento das coordenadas da caixa a cada 200 fs, gerando 10.000 configurações por sistema para a amostragem estatística (\textit{frames}). O controle de pressão isotrópica foi mantido a 1 bar utilizando o barostato \textit{cell-rescaling} acoplado a uma constante de tempo de 4,0 ps e compressibilidade de $3 \times 10^{-4}\text{ bar}^{-1}$. O banho térmico foi rigorosamente controlado via termostato \textit{velocity-rescaling} com constante de relaxamento $\tau_t = 1,0\text{ ps}$.
+
+As extrações geométricas referentes à Área por Lipídio (APL) foram executadas sobre os 150 ns finais de cada trajetória, assegurando que o sistema já havia superado o regime transiente, empregando o algoritmo FATSLIM (versão 0.2.2). As avaliações visuais foram renderizadas pelo software Visual Molecular Dynamics (VMD).
+
+\subsection{Reprodutibilidade e Disponibilidade de Dados}
+
+Em consonância com as boas práticas de Ciência Aberta e para assegurar a total reprodutibilidade dos protocolos termodinâmicos descritos, o conjunto integral de dados operacionais associados a este estudo foi estruturado e disponibilizado publicamente. Os arquivos contendo as coordenadas iniciais reconstruídas (\textit{.gro}), as topologias paramétricas utilizadas (\textit{.top}), as macros de configuração do GROMACS (\textit{.mdp}) e os algoritmos desenvolvidos em Python (utilizados para a extração, tratamento estatístico e renderização gráfica via Pandas e Matplotlib) encontram-se depositados em um repositório institucional no \textit{GitHub}. O acervo pode ser acessado diretamente através da seguinte URL de indexação: \texttt{https://github.com/junioaa/TCC_Membranes_UFGORIO}.

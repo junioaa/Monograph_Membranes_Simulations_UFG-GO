@@ -1,0 +1,126 @@
+\documentclass[12pt, a4paper, oneside]{article}
+
+% --- PACOTES FUNDAMENTAIS ---
+\usepackage[utf8]{inputenc}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} % Limpa cabeçalhos e rodapés padrão
+\renewcommand{\headrulewidth}{0pt} % Remove a linha do cabeçalho
+\fancyfoot[R]{\thepage} % Número da página no canto inferior direito
+
+% Força as páginas de capítulos e sumários a obedecerem à regra da direita
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \fancyfoot[R]{\thepage}
+}
+\usepackage{sectsty}
+\sectionfont{\fontsize{17}{20}\selectfont\bfseries}
+\subsectionfont{\fontsize{14}{17}\selectfont\bfseries}
+\subsubsectionfont{\fontsize{13}{16}\selectfont\bfseries}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{mathptmx} % Fonte Times New Roman
+\usepackage[left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry} % Todas as margens com 25 mm[cite: 3]
+\usepackage{graphicx}
+\usepackage{float}
+\graphicspath{{imagens/}}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{indentfirst} % Recuo na primeira linha do parágrafo
+\usepackage{chngcntr} % Para numerar figuras e tabelas por capítulo[cite: 3]
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{subcaption}
+\usepackage{longtable}
+\usepackage[numbers,square,sort&compress]{natbib}
+\usepackage{url}
+\usepackage[colorlinks=true, allcolors=black, urlcolor=blue, breaklinks=true]{hyperref}
+
+
+% --- CONFIGURAÇÃO DE PARÁGRAFO E ESPAÇAMENTO ---
+\onehalfspacing % Espaçamento 1,5 entrelinhas no texto[cite: 3]
+\setlength{\parindent}{1cm} % Tabulação de 1 cm[cite: 3]
+\setlength{\parskip}{0pt} % Sem espaçamento entre parágrafos[cite: 3]
+
+% --- CONFIGURAÇÃO DOS TÍTULOS (Níveis 1 a 4) conforme UFG[cite: 3] ---
+\usepackage{titlesec}
+% Nível 1 (Capítulo): Times 17, Negrito, Maiúscula. Antes: 0pt, Depois: 12pt[cite: 3]
+\titleformat{\section}{\normalfont\fontsize{17}{20}\bfseries\uppercase}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{0pt}{12pt}
+
+% Nível 2: Times 14, Negrito, Maiúscula. Antes: 12pt, Depois: 6pt[cite: 3]
+\titleformat{\subsection}{\normalfont\fontsize{14}{17}\bfseries\uppercase}{\thesubsection}{1em}{}
+\titlespacing*{\subsection}{0pt}{12pt}{6pt}
+
+% Nível 3: Times 13, Negrito. Antes: 12pt, Depois: 6pt[cite: 3]
+\titleformat{\subsubsection}{\normalfont\fontsize{13}{16}\bfseries}{\thesubsubsection}{1em}{}
+\titlespacing*{\subsubsection}{0pt}{12pt}{6pt}
+
+% Nível 4: Times 12, Itálico. Antes: 10pt, Depois: 6pt[cite: 3]
+\titleformat{\paragraph}{\normalfont\fontsize{12}{14}\itshape}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}{0pt}{10pt}{6pt}
+
+% --- NUMERAÇÃO DE FIGURAS, TABELAS E EQUAÇÕES POR CAPÍTULO[cite: 3] ---
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
+\counterwithin{equation}{section}
+
+% --- FORMATAÇÃO DAS LEGENDAS DE FIGURAS E TABELAS[cite: 3] ---
+\usepackage{caption}
+% Fonte Times 11 (\small em doc de 12pt), centralizado, espaçamento simples, 3pt antes/depois[cite: 3]
+\captionsetup{font={small, singlespacing}, labelsep=period, justification=centering, skip=3pt}
+
+% --- FORMATAÇÃO DO SUMÁRIO E LISTAS ---
+\usepackage{tocloft}
+\renewcommand{\cfttoctitlefont}{\hfill\normalfont\fontsize{17}{20}\bfseries}
+\renewcommand{\cftaftertoctitle}{\hfill}
+\renewcommand{\cftloftitlefont}{\hfill\normalfont\fontsize{17}{20}\bfseries}
+\renewcommand{\cftafterloftitle}{\hfill}
+\renewcommand{\cftlottitlefont}{\hfill\normalfont\fontsize{17}{20}\bfseries}
+\renewcommand{\cftafterlottitle}{\hfill}
+
+% Forçando os títulos em maiúsculas com segurança
+\addto\captionsbrazil{
+  \renewcommand{\contentsname}{SUMÁRIO}
+  \renewcommand{\listfigurename}{LISTA DE FIGURAS}
+  \renewcommand{\listtablename}{LISTA DE TABELAS}
+}
+
+
+% --- REGRA DA UFG: CADA CAPÍTULO E ITEM PRÉ-TEXTUAL EM PÁGINA SEPARADA ---
+\let\oldsection\section
+\renewcommand{\section}{\clearpage\oldsection}
+\begin{document}
+
+% Início dos pré-textuais (numeração romana exigida pela UFG)
+\pagenumbering{roman}
+\input{00_pre_textuais.tex}
+
+
+% --- PRÉ-TEXTUAIS (Numeração Romana)[cite: 3] ---
+ 
+% (Insira aqui a Capa, Folha de Rosto, etc.)
+
+\input{01_resumo_abstract}
+
+ % Lista de Tabelas[cite: 3]
+ % Lista de Figuras[cite: 3]
+ % Sumário[cite: 3]
+% --- TEXTUAIS (Numeração Arábica)[cite: 3] ---
+\input{02_introducao}
+\input{03_objetivos}
+\input{04_revisao_bibliografica}
+\input{05_metodologia}
+\input{06_resultados}
+\input{07_conclusao}
+
+% --- PÓS-TEXTUAIS ---
+\singlespacing
+\bibliographystyle{estilo_ufg}
+\input{07_conclusao.tex}
+
+\bibliography{referencias}
+
+\end{document}
