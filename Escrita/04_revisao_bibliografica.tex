@@ -1,0 +1,67 @@
+\section{REVISÃO BIBLIOGRÁFICA}
+
+\subsection{Biofísica de Membranas Lipídicas}
+
+As membranas lipídicas são as fronteiras ativas fundamentais da vida, atuando na compartimentalização celular e como estruturas dinâmicas para a sinalização, transporte e interação molecular. Sua complexidade estende-se além do modelo clássico do mosaico fluido, apresentando-se como interfaces definidas por uma notável diversidade composicional. Esta heterogeneidade, resultante de variações nas cabeças dos grupos lipídicos, no comprimento das cadeias acílicas e no grau de saturação, determina propriedades físicas e mecânicas cruciais, como a fluidez, a permeabilidade, a curvatura e a estabilidade da membrana \cite{watson2015}.
+
+As interações entre bicamadas lipídicas são influenciadas por forças entre superfícies carregadas em meio líquido, como a combinação de forças eletrostática e de Lennard-Jones. Adicionalmente, a pressão de hidratação repulsiva, derivada da reorganização estrutural da água na interface \cite{schneck2012}. Fosfolipídios saturados, como a dipalmitoilfosfatidilcolina (DPPC) e a diestearoilfosfatidilcolina (DSPC), exibem transições de fase termotrópicas bem documentadas, onde a matriz lamelar transita de um estado sólido ou gel ($L_{\beta}$), com cadeias acílicas altamente empacotadas, para uma fase fluida ($L_{\alpha}$), quando a energia térmica do sistema supera a temperatura de transição principal ($T_m$) \cite{sun2018}.
+
+Durante a fase fluida, o volume livre interfacial permite que as moléculas de água ocupem os interstícios das cabeças polares (zwitteriônicas ou carregadas), estabelecendo interações de hidrogênio e eletrostáticas favoráveis. Para que a cristalização cooperativa e a condensação lateral ocorram, a membrana deve ejetar mecanicamente esta água da camada de solvatação primária, um evento denominado como barreira de repulsão por hidratação. \cite{ref_schneck_2012}  
+
+
+\subsection{Efeitos do Colesterol e o Modelo de Cordas Flexíveis}
+
+O colesterol é um modulador essencial nas membranas celulares \cite{paukner2022}, presente em concentrações que tipicamente não excedem 50\% em mol na membrana plasmática animal \cite{khadka2021}. Sua estrutura molecular baseada em um núcleo tetracíclico planar rígido, uma cauda iso-octil flexível e um grupamento hidroxila (-OH) de ancoragem interfacial promove um fenômeno conhecido como efeito condensador \cite{sawdon2025}.
+
+Os lipídios separadamente apresentam elevado grau de liberdade conformacional. Esse comportamento pode ser descrito pelo modelo de cordas flexíveis (\textit{Flexible Strings Model}) \cite{mukhin2016flexible}. A introdução do colesterol devido à sua estrutura de anéis tetracíclicos, atua como uma haste rígida quando intercalado na bicamada. A presença do esterol suprime os graus de liberdade vibracionais das cadeias alquílicas adjacentes, impondo um ordenamento que estira as caudas fosfolipídicas \cite{bennett2018}. Este fenômeno, resulta na diminuição da APL e no aumento da espessura da membrana, induzindo a formação da fase líquida-ordenada ($L_o$) \cite{leeb2018}. Termodinamicamente, a otimização dos contatos atrativos no núcleo apolar proporciona uma contribuição entálpica favorável, a qual é, contudo, oposta pela entrópica, desfavorável \cite{bennett2018}.
+
+\subsection{Interações Interfaciais: Hidratação e Efeitos Iônicos}
+
+A interface polar da membrana não atua no vácuo, ela é mediada pela presença do solvente e de íons livres. A camada de hidratação primária, formada por moléculas de água fortemente associadas aos grupos fosfato e colina, confere estabilidade ao sistema \cite{kowalik2015}. A remoção desta água interfacial requer a superação da força de repulsão por hidratação \cite{schneck2012}. Durante processos que exigem condensação lateral, como a transição para a fase gel, o sistema deve compensar o custo energético de expulsar essas moléculas de água da interface \cite{krok2024}.
+
+Além da água, a presença de sais, como o cloreto de sódio (NaCl), afeta diretamente as propriedades eletrostáticas (energia de Coulomb) da bicamada. Cátions de sódio ($Na^+$) não exercem apenas um efeito difuso de blindagem dielétrica, mas coordenam-se diretamente com os oxigênios carbonílicos e os grupos fosfato dos lipídios \cite{bockmann2003, javanainen2017}. Essa interação específica cria pontes eletrostáticas que unem lipídios adjacentes, resultando em condensação lateral adicional e estabilização da rede interfacial. 
+
+Historicamente, a modelagem computacional dessa interação iônica apresentou desafios, com campos de força superestimando a afinidade do sódio e gerando membranas artificialmente rígidas \cite{melcr2018}. Consequentemente, o uso de parâmetros ajustados é essencial para evitar o superempacotamento induzido por íons em simulações.
+
+\subsection{Dinâmica Molecular}
+
+A técnica de Dinâmica Molecular (DM) estabeleceu-se como uma ferramenta computacional necessária na biofísica moderna. A DM baseia-se na resolução numérica das equações de movimento de Newton para um sistema de átomos interativos que é acompanhado ao longo do tempo, mantendo-se sob condições controladas de temperatura e pressão, sendo as coordenadas registradas em intervalos regulares para compor a trajetória da simulação. Tornando-se possível extrair propriedades macroscópicas de interesse \cite{gromacs2024}. A validade desta abordagem na avaliação de estabilidade estrutural, energias de interação e propriedades termodinâmicas tem sido amplamente utilizada, com aplicações que variam desde o entendimento fundamental de membranas até a prospecção e o reposicionamento de fármacos contra alvos virais complexos \cite{cardoso2021, colherinhas2025}.
+
+Embora abordagens totalmente atomísticas (\textit{All-Atom}) ofereçam uma resolução detalhada, a investigação de propriedades termodinâmicas macroscópicas em membranas lipídicas exige escalas de tempo e tamanho que frequentemente superam os limites do regime atomístico. Desta forma, a metodologia da DM para o regime de simplificação molecular (\textit{Coarse-Graining}), visa acelerar a computabilidade.
+
+A modelagem de sistemas biomoleculares fundamenta-se na mecânica clássica e na termodinâmica estatística. A estabilidade estrutural das membranas é ditada pelas interações não-covalentes, cujas contribuições energéticas eletrostáticas são descritas pelo Potencial Eletrostático de Coulomb:
+\begin{equation}
+    V_{Coulomb}(r) = \frac{1}{4\pi\epsilon}\frac{q_i q_j}{r}
+\end{equation}
+onde $\epsilon$ é a permissividade do meio, $q_i$ e $q_j$ as cargas das partículas e $r$ a distância que as separa.
+
+A repulsão estérica e as forças atrativas de van der Waals no núcleo hidrofóbico são governadas pelo potencial de Lennard-Jones (LJ) \cite{lenhard2024history}:
+\begin{equation}
+    V_{LJ}(r) = 4\epsilon \left[ \left(\frac{\sigma}{r}\right)^{12} - \left(\frac{\sigma}{r}\right)^6 \right]
+\end{equation}
+Nesta equação, o termo atrativo $(1/r^6)$ reflete as forças de dispersão, enquanto o termo repulsivo $(1/r^{12})$ de curto alcance é decorrente do Princípio de Exclusão de Pauli. O parâmetro $\sigma$ delimita o raio de exclusão e $\epsilon$ a energia característica do poço de potencial.
+
+O estado físico e a cinética de transição da membrana (como a dessolvatação interfacial e a cristalização) dependem da probabilidade do sistema contornar barreiras de energia de ativação ($E_a$), descrita pela equação de Arrhenius através do fator de Boltzmann \cite{peleg2012arrhenius}:
+\begin{equation}
+    P \propto \exp\left(-\frac{E_a}{k_B T}\right)
+\end{equation}
+onde $k_B$ é a constante de Boltzmann e $T$ a temperatura absoluta do sistema.
+
+Adicionalmente, a variação energética da bicamada em resposta a flutuações de temperatura é expressa pela capacidade calorífica à pressão constante ($C_p$), definida pela derivada parcial da entalpia ($H$) \cite{hothar2024accurate}:
+\begin{equation}
+    C_p = \left(\frac{\partial H}{\partial T}\right)_p
+\end{equation}
+
+\subsection{Campo de Força Martini 3}
+
+O campo de força Martini é um arcabouço computacional utilizado para a modelagem \textit{Coarse-Grained} de biomembranas. A introdução da versão Martini 3, com extensas reparametrizações \cite{pedersen2025}, aumentou a exatidão na descrição do lipidoma, expandindo a biblioteca para uma ampla variedade de estruturas lipídicas e corrigindo limitações observadas em versões anteriores.
+
+O desafio histórico do modelo CG era o mapeamento padrão de 4 átomos pesados para 1 \textit{bead}. Sob essa diretriz, no Martini 2, as cadeias acílicas de 16 átomos de carbono como do DPPC e as de 18 átomos como do DSPC exibiam a mesma configuração paramétrica. Experimentalmente, medições de espalhamento de raios-X e nêutrons atestam que a espessura da distância pico-a-pico da densidade eletrônica ($D_{HH}$) é de $3,46 \pm 0,07$ nm para o DPPC e $4,33 \pm 0,09$ nm para o DSPC a 333 K. O mapeamento antigo não reproduzia fielmente esse gradiente geométrico \cite{pedersen2025}.
+
+O Martini 3 superou este obstáculo implementando uma estratégia de mapeamento de raios variáveis, diferenciando lipídios que diferem por dois átomos de carbono. A correção paramétrica garante o alinhamento da espessura transversal simulada \cite{pedersen2025}.
+
+Outra motivação à reparametrização do Martini 3 foi a recuperação das propriedades de separação de fases. O modelo Martini 2 apresentava dificuldade em induzir a coexistência de fases lamelar fluida ($L_d$) e líquida-ordenada ($L_o$) em diagramas de fase ternários (ex. DPPC/DOPC/Colesterol) a temperaturas biologicamente relevantes, frequentemente resultando em misturas homogeneamente desordenadas.
+
+Para restaurar esta fidelidade, os desenvolvedores realizaram uma otimização aceitando-se uma pequena e sistemática, subestimação da Área por Lipídio para componentes como fosfatidilcolinas (PC), fosfatidilgliceróis (PG) e esfingomielinas (SM). O aumento discreto na compactação interfacial estabiliza as interações intermoleculares e permite que o modelo capture a formação de microdomínios dinâmicos \cite{pedersen2025}. Em matrizes DPPC/DSPC/Colesterol, o Martini 3 é capaz de predizer substruturas ordenadas e a característica da fase $L_o$, representando um avanço significativo em relação às versões anteriores.
+
+Neste contexto, esse trabalho emprega simulação computacional para quantificar os mecanismos termodinâmicos que determinam a estabilidade, e a transição de fase de membranas lipídicas de DPPC e DSPC, na presença e ausência de colesterol e ions, utilizando simulações de Dinâmica Molecular com o modelo \textit{coarse-grained} Martini 3, a fim de investigar a dependência do grau de hidratação na estrutura das bicamadas sob um protocolo de simulação específico. Avaliando o impacto das interações energéticas do cloreto de sódio ($NaCl$), na densidade e estruturação da interface polar e o efeito condensador induzido por concentrações crescentes de colesterol nas propriedades físicas da membrana. Relacionando a variação da Área por Lipídio com o balanço entálpico-entrópico global da caixa de simulação com a quantificação das contribuições isoladas das energias de Coulomb e de Lennard-Jones frente às variações de temperatura e composição lipídica.

@@ -1,0 +1,58 @@
+\section{METODOLOGIA}
+
+A modelagem foi conduzida utilizando o campo de força Martini 3, empregando protocolos de otimização de parâmetros detalhados na literatura recente para a biblioteca de lipídios (\textit{Lipidome}) \cite{pedersen2025}. 
+
+No esquema de mapeamento adotado, as caudas acílicas de 16 átomos de carbono do DPPC foram parametrizadas utilizando contas de menor raio de exclusão (\textit{small beads}) nos três carbonos adjacentes à porção éster, mitigando constrangimentos volumétricos exagerados que poderiam inibir a nucleação. Em contrapartida, as caudas de 18 carbonos do DSPC foram modeladas integralmente com contas de diâmetro regular (\textit{regular beads}). Além disso, os grupos éster foram mapeados juntamente com o carbono adjacente do glicerol em uma conta do tipo SN4a. Este refinamento paramétrico é determinante para a captura precisa da espessura da bicamada e da temperatura de transição de fase cooperativa ($T_m$) \cite{pedersen2025}.
+
+\subsection{Construção dos Sistemas e Controle de Hidratação}
+
+As configurações iniciais das bicamadas, para todos os sistemas, foram construídas utilizando a ferramenta \textit{Insane} (INteractive Setup and ANalysis Environment) \cite{wassenaar2015}.
+
+Para estabelecer o limite superior do gradiente hídrico com hidratação de 45 W/L é necessário uma camada inicial de solvatação de 3 nm em ambas as faces da membrana. A construção dos regimes de média (27 W/L) e baixa hidratação (15 W/L) obedeceu à mesma diretriz de montagem, alterando-se exclusivamente o parâmetro $z$ (\textit{box height}) no algoritmo \textit{Insane} para adequar o confinamento espacial à hidratação pretendida. 
+
+Uma vez que a inserção de solvente pelo método estocástico do \textit{Insane} acarreta pequenas flutuações na quantidade absoluta de moléculas de água entre diferentes montagens da mesma caixa, as topologias foram submetidas a uma etapa de inspeção. As moléculas de água excedentes foram extirpadas dos arquivos de coordenadas (\textit{.gro}) e topologia (\textit{.top}) finais. Este procedimento garantiu a manutenção das estequiometrias propostas para todas as réplicas, neutralizando desvios induzidos pelo algoritmo.
+
+A Tabela \ref{tab:sistemas_simulados} detalha a composição molecular, a descrição total de partículas (\textit{beads}) e a evolução volumétrica das caixas de simulação.
+
+\begin{table}[htpb]
+    \centering
+    \caption{Composição estequiométrica, número de partículas e dimensões das caixas inicial e final (290K) para os sistemas simulados.}
+    \label{tab:sistemas_simulados}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{lccccccc}
+        \hline
+        Sistema & Lipídios & CHOL & Água (W) & Íons (Na/Cl) & Total de Moleculas & Caixa Inicial (nm) & Caixa Final (nm) \\
+        \hline
+        15W\_L & 200 & 0 & 3000 & 0 & 3200 & 8.00 $\times$ 8.00 $\times$ 6.30 & 6.68 $\times$ 6.68 $\times$ 7.05 \\
+        27W\_L & 200 & 0 & 5400 & 0 & 5600 & 8.00 $\times$ 8.00 $\times$ 14.48 & 7.40 $\times$ 7.40 $\times$ 16.78 \\
+        45W\_L & 200 & 0 & 9000 & 0 & 9200 & 8.00 $\times$ 8.00 $\times$ 20.50 & 6.76 $\times$ 6.76 $\times$ 29.54 \\
+        CHOL 0 & 242 & 0 & 9680 & 0 & 9922 & 8.50 $\times$ 8.50 $\times$ 20.50 & 7.93 $\times$ 7.93 $\times$ 23.55 \\
+        CHOL 0 salt & 240 & 0 & 9400 & 112/112 & 9854 & 8.50 $\times$ 8.50 $\times$ 20.50 & 7.39 $\times$ 7.39 $\times$ 25.91 \\
+        CHOL 3 & 230 & 10 & 9600 & 0 & 9840 & 8.50 $\times$ 8.50 $\times$ 20.50 & 7.85 $\times$ 7.85 $\times$ 23.71 \\
+        CHOL 4 salt & 230 & 10 & 9376 & 112/112 & 9840 & 8.50 $\times$ 8.50 $\times$ 20.50 & 7.27 $\times$ 7.27 $\times$ 26.40 \\
+        CHOL 30 & 166 & 74 & 9600 & 0 & 9840 & 8.50 $\times$ 8.50 $\times$ 20.50 & 7.16 $\times$ 7.16 $\times$ 27.73 \\
+        CHOL 40 salt & 144 & 96 & 9372 & 114/114 & 9840 & 8.50 $\times$ 8.50 $\times$ 20.50 & 6.95 $\times$ 6.95 $\times$ 27.78 \\
+        \hline
+    \end{tabular}%
+    }
+\end{table}
+
+
+\subsection{Protocolo de Simulação Termodinâmica}
+
+A execução do código de dinâmica molecular (MD) GROMACS v2024.1 \cite{gromacs2024} foi conduzida no \textit{cluster} de computação de alto desempenho (HPC) \cite{kutzner2023hpc}, vinculado ao Grupo de Óptica e Informação Quântica do Instituto de Física da UFG, equipado com CPUs Intel Core i7, operando com um total de 96 \textit{threads} (distribuídas em 12 nós computacionais). Sob este arranjo, utilizando 20 \textit{threads}, os diferentes sistemas de MD descritos neste estudo foram simulados, sob condições periódicas de contorno (PBC) \cite{gromacs_pbc_2021}.
+
+A minimização geométrica dos sistemas foi seguida por um protocolo sistemático de equilíbrio termodinâmico em quatro estágios. Durante esta fase, o passo de integração de tempo (\textit{timestep}) foi progressivamente elevado de 5 fs para 20 fs, permitindo o relaxamento gradual do empacotamento interfacial. Cada sistema foi submetido a uma etapa suplementar de equilíbrio de 20 ns, assegurando a termalização adequada da membrana em seu respectivo banho térmico alvo, indo de 290 K a 350 K.
+
+Os parâmetros de integração algorítmica e o controle termodinâmico adotados neste trabalho fundamentam-se nas diretrizes do estado da arte para a estabilidade do lipidoma Martini 3 \cite{pedersen2025}. O controle de pressão semi-isotrópico foi utilizado visando a dilatação e contração autônoma do plano lateral da membrana (eixos X e Y) desvinculada do eixo transversal (Z), condição mecânica exigida para bicamadas lipídicas. 
+
+A pressão foi mantida a 1 bar pelo barostato estocástico \textit{cell-rescaling} (\textit{c-rescale}), utilizando constante de tempo $\tau_p = 4,0$ ps e compressibilidade de $3\times10^{-4}\text{ bar}^{-1}$. A escolha do \textit{c-rescale} em detrimento do algoritmo clássico de Parrinello-Rahman suprime ressonâncias mecânicas que provocam a quebra artificial da caixa de simulação (\textit{crystal breaking}), um fenômeno crítico quando o sistema simulado condensa para a alta rigidez da fase gel ($L_\beta$) ou líquida-ordenada ($L_o$) \cite{pedersen2025}.
+
+Para assegurar o cálculo preciso da lista de vizinhos (\textit{neighbor list}) e suprimir pressões artificiais causadoras de ondulações irreais e violação da isotropia espacial no modelo \textit{coarse-grained}, a tolerância do \textit{buffer} de Verlet foi desativada (\texttt{verlet-buffer-tolerance = -1}) e acoplada a um raio de corte estendido para 1,35 nm. A temperatura foi estabilizada via termostato \textit{velocity-rescaling} (\textit{v-rescale}) com constante de relaxamento $\tau_t = 1,0$ ps. Otimizações paramétricas do GROMACS sugeridas no Martini 3 \cite{pedersen2025}.
+
+As extrações geométricas referentes à Área por Lipídio (APL) foram executadas sobre os 150 ns finais de cada trajetória, assegurando que o sistema já havia superado o regime transiente, empregando o algoritmo FATSLIM (versão 0.2.2) \cite{buchoux2017fatslim}. As avaliações visuais e análises topológicas das trajetórias foram renderizadas pelo \textit{software} Visual Molecular Dynamics (VMD) \cite{vmd2024}.
+
+\subsection{Reprodutibilidade e Disponibilidade de Dados}
+
+Em consonância com as boas práticas de Ciência Aberta e para assegurar a total reprodutibilidade dos protocolos termodinâmicos descritos, o conjunto integral de dados operacionais associados a este estudo foi estruturado e disponibilizado publicamente. Os arquivos contendo as coordenadas iniciais reconstruídas (\textit{.gro}), as topologias paramétricas utilizadas (\textit{.top}), as macros de configuração do GROMACS (\textit{.mdp}) e os algoritmos desenvolvidos em Python (utilizados para a extração, tratamento estatístico e renderização gráfica via Pandas e Matplotlib) encontram-se depositados em um repositório no \textit{GitHub}. O acervo pode ser acessado diretamente através da seguinte URL de indexação: \texttt{\url{https://github.com/junioaa/TCC_Membranes_UFG}}.
+o

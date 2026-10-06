@@ -1,0 +1,19 @@
+\babel@toc {brazil}{}\relax 
+\contentsline {section}{\numberline {1}REVISÃO BIBLIOGRÁFICA}{14}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Biofísica de Membranas Lipídicas}{14}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Efeitos do Colesterol e o Modelo de Cordas Flexíveis}{14}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Interações Interfaciais: Hidratação e Efeitos Iônicos}{15}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Dinâmica Molecular}{15}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.5}Campo de Força Martini 3}{16}{subsection.1.5}%
+\contentsline {section}{\numberline {2}METODOLOGIA}{18}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Construção dos Sistemas e Controle de Hidratação}{18}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Protocolo de Simulação Termodinâmica}{19}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Reprodutibilidade e Disponibilidade de Dados}{20}{subsection.2.3}%
+\contentsline {section}{\numberline {3}RESULTADOS E DISCUSSÃO}{21}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Efeito Condensador do Colesterol}{29}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Análise Termodinâmica Global: Coulomb vs. Lennard-Jones}{33}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Topologia Interfacial e Empacotamento Hidrofóbico: Análise Morfológica}{39}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Perspectivas Futuras: Aprimoramentos Paramétricos e Nucleação Assistida (\textit {Seeding})}{41}{subsection.3.4}%
+\contentsline {section}{\numberline {4}CONCLUSÃO}{43}{section.4}%
+\contentsline {section}{\numberline {5}REFERÊNCIAS BIBLIOGRÁFICAS}{44}{section*.19}%
+\contentsline {section}{\numberline {6}ANEXO}{48}{section.6}%

@@ -1,0 +1,53 @@
+This is BibTeX, Version 0.99d (TeX Live 2022/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: estilo_ufg.bst
+Database file #1: referencias.bib
+Too many commas in name 1 of "Lenhard, Johannes \& Stephan,Simon \& Hasse, Hans" for entry lenhard2024history
+while executing---line 1233 of file estilo_ufg.bst
+Too many commas in name 1 of "Lenhard, Johannes \& Stephan,Simon \& Hasse, Hans" for entry lenhard2024history
+while executing---line 1315 of file estilo_ufg.bst
+Too many commas in name 1 of "Lenhard, Johannes \& Stephan,Simon \& Hasse, Hans" for entry lenhard2024history
+while executing---line 1315 of file estilo_ufg.bst
+You've used 36 entries,
+            2481 wiz_defined-function locations,
+            838 strings with 13478 characters,
+and the built_in function-call counts, 13929 in all, are:
+= -- 1374
+> -- 422
+< -- 30
++ -- 194
+- -- 122
+* -- 1092
+:= -- 2226
+add.period$ -- 173
+call.type$ -- 36
+change.case$ -- 70
+chr.to.int$ -- 36
+cite$ -- 36
+duplicate$ -- 676
+empty$ -- 1331
+format.name$ -- 164
+if$ -- 2954
+int.to.chr$ -- 1
+int.to.str$ -- 37
+missing$ -- 34
+newline$ -- 253
+num.names$ -- 108
+pop$ -- 193
+preamble$ -- 1
+purify$ -- 36
+quote$ -- 0
+skip$ -- 391
+stack$ -- 0
+substring$ -- 886
+swap$ -- 74
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 252
+warning$ -- 0
+while$ -- 126
+width$ -- 0
+write$ -- 601
+(There were 3 error messages)

@@ -1,0 +1,26 @@
+\subsection{Fundamentos Físico-Matemáticos da Dinâmica Molecular}
+
+A modelagem de sistemas biomoleculares fundamenta-se na mecânica clássica e na termodinâmica estatística. A estabilidade estrutural das membranas é ditada pelas interações não-covalentes, cujas contribuições energéticas eletrostáticas são descritas pela Lei de Coulomb:
+\begin{equation}
+    V_{Coulomb}(r) = \frac{1}{4\pi\epsilon_0}\frac{q_i q_j}{r}
+\end{equation}
+onde $\epsilon_0$ é a permissividade do vácuo, $q_i$ e $q_j$ as cargas das partículas e $r$ a distância que as separa.
+
+A repulsão estérica e as forças atrativas de van der Waals no núcleo hidrofóbico são governadas pelo potencial de Lennard-Jones (LJ):
+\begin{equation}
+    V_{LJ}(r) = 4\epsilon \left[ \left(\frac{\sigma}{r}\right)^{12} - \left(\frac{\sigma}{r}\right)^6 \right]
+\end{equation}
+Nesta equação, o termo atrativo $(1/r^6)$ reflete as forças de dispersão, enquanto o termo repulsivo $(1/r^{12})$ quantifica o limite colisional derivado do Princípio de Exclusão de Pauli. O parâmetro $\sigma$ delimita o raio de exclusão e $\epsilon$ a energia característica do poço de potencial.
+
+O estado físico e a cinética de transição da membrana (como a dessolvatação interfacial e a cristalização) dependem da probabilidade do sistema contornar barreiras de energia de ativação ($E_a$), descrita pela equação de Arrhenius através do fator de Boltzmann:
+\begin{equation}
+    P \propto \exp\left(-\frac{E_a}{k_B T}\right)
+\end{equation}
+onde $k_B$ é a constante de Boltzmann e $T$ a temperatura absoluta do sistema. Barreiras entálpicas de magnitude superior à flutuação térmica disponível ($k_B T$) resultam em retenção cinética, característica de líquidos super-resfriados.
+
+Adicionalmente, a variação energética da bicamada em resposta a flutuações de temperatura é matematicamente expressa pela capacidade calorífica à pressão constante ($C_p$), definida pela derivada parcial da entalpia ($H$):
+\begin{equation}
+    C_p = \left(\frac{\partial H}{\partial T}\right)_p
+\end{equation}
+Em ensaios in silico, a extração da derivada termotrópica associada unicamente à energia de dispersão ($\partial E_{LJ}/\partial T$) permite caracterizar a inércia configuracional e rastrear transições de fase cooperativas.
+

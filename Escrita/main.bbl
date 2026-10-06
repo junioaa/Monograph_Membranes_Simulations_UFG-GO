@@ -1,0 +1,330 @@
+\begin{thebibliography}{36}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[{Helen Watson}(2015)]{watson2015}
+{Helen Watson}.
+\newblock Biological membranes.
+\newblock \emph{Essays in Biochemistry}, 59:\penalty0 43--69, 2015.
+\newblock \doi{10.1042/bse0590043}.
+\newblock URL \url{https://pmc.ncbi.nlm.nih.gov/articles/PMC4626904/}.
+
+\bibitem[{Emanuel Schneck \textit{et al.}}(2012)]{schneck2012}
+{Emanuel Schneck \textit{et al.}}
+\newblock Hydration repulsion between biomembranes results from an interplay of
+  dehydration and depolarization.
+\newblock \emph{Proceedings of the National Academy of Sciences}, 109\penalty0
+  (36):\penalty0 14405--14409, 2012.
+\newblock \doi{10.1073/pnas.1205811109}.
+\newblock URL \url{https://pmc.ncbi.nlm.nih.gov/articles/PMC3437872/}.
+
+\bibitem[Sun et~al.(2018)]{sun2018}
+M.~Sun et~al.
+\newblock Membrane phase transitions and thermodynamics.
+\newblock \emph{European Biophysics Journal}, 2018.
+\newblock URL
+  \url{https://www.biomemphys.nat.fau.de/files/2018/03/sun_ebj_2018.pdf}.
+
+\bibitem[{Emanuel Schneck, Felix Sedlmeier \& Roland R.
+  Netz}(2012)]{ref_schneck_2012}
+{Emanuel Schneck, Felix Sedlmeier \& Roland R. Netz}.
+\newblock Hydration repulsion between biomembranes results from an interplay of
+  dehydration and depolarization.
+\newblock \emph{Proceedings of the National Academy of Sciences}, 109\penalty0
+  (36):\penalty0 14405--14409, 2012.
+\newblock \doi{10.1073/pnas.1205811109}.
+\newblock URL \url{https://www.pnas.org/doi/10.1073/pnas.1205811109}.
+
+\bibitem[{Karel Paukner, Ivana Kr{\'a}lov{\'a} Lesn{\'a} \& Rudolf
+  Poledne}(2022)]{paukner2022}
+{Karel Paukner, Ivana Kr{\'a}lov{\'a} Lesn{\'a} \& Rudolf Poledne}.
+\newblock Cholesterol in the cell membrane---an emerging player in
+  atherogenesis.
+\newblock \emph{International Journal of Molecular Sciences}, 23\penalty0
+  (1):\penalty0 533, 2022.
+\newblock \doi{10.3390/ijms23010533}.
+\newblock URL \url{https://pmc.ncbi.nlm.nih.gov/articles/PMC8745363/}.
+
+\bibitem[{Nawal K. Khadka, Raju Timsina \& Laxman Mainali}(2021)]{khadka2021}
+{Nawal K. Khadka, Raju Timsina \& Laxman Mainali}.
+\newblock Mechanical properties of the high cholesterol-containing membrane: An
+  afm study.
+\newblock \emph{Biochimica et Biophysica Acta (BBA) - Biomembranes},
+  1863\penalty0 (8):\penalty0 183625, 2021.
+\newblock \doi{10.1016/j.bbamem.2021.183625}.
+\newblock URL \url{https://pubmed.ncbi.nlm.nih.gov/33891910/}.
+
+\bibitem[Sawdon et~al.(2025)Sawdon, Piggot, \& Essex]{sawdon2025}
+James Sawdon, Thomas~J Piggot, \& Jonathan~W Essex.
+\newblock How well do empirical molecular mechanics force fields model the
+  cholesterol condensing effect?
+\newblock \emph{The Journal of Chemical Physics}, 162\penalty0 (4):\penalty0
+  044901, 2025.
+\newblock \doi{10.1063/5.0238409}.
+\newblock URL \url{https://pubmed.ncbi.nlm.nih.gov/39873279/}.
+
+\bibitem[Mukhin et~al.(2016)Mukhin, Kheyfets, \&
+  Galimzyanov]{mukhin2016flexible}
+Sergei~I. Mukhin, Boris~B. Kheyfets, \& Timur~R. Galimzyanov.
+\newblock Flexible string model analytical description of main phase transition
+  in lipid bilayers.
+\newblock \emph{Biophysical Journal}, 110\penalty0 (3):\penalty0 73a, 2016.
+\newblock \doi{10.1016/j.bpj.2015.11.459}.
+\newblock URL
+  \url{https://www.cell.com/biophysj/fulltext/S0006-3495(15)01642-2}.
+
+\bibitem[{W. F. Drew Bennett, Joan-Emma Shea \& D. Peter
+  Tieleman}(2018)]{bennett2018}
+{W. F. Drew Bennett, Joan-Emma Shea \& D. Peter Tieleman}.
+\newblock Phospholipid chain interactions with cholesterol drive domain
+  formation in lipid membranes.
+\newblock \emph{Biophysical Journal}, 114\penalty0 (11):\penalty0 2595--2605,
+  2018.
+\newblock URL \url{https://pubmed.ncbi.nlm.nih.gov/29874610/}.
+
+\bibitem[{Felix Leeb \& Lutz Maibaum}(2018)]{leeb2018}
+{Felix Leeb \& Lutz Maibaum}.
+\newblock Spatially resolving the condensing effect of cholesterol in lipid
+  bilayers.
+\newblock \emph{The Journal of Chemical Physics}, 149\penalty0 (24):\penalty0
+  243101, 2018.
+\newblock URL \url{https://pubmed.ncbi.nlm.nih.gov/30447996/}.
+
+\bibitem[{Bartosz Kowalik \textit{et al.}}(2015)]{kowalik2015}
+{Bartosz Kowalik \textit{et al.}}
+\newblock Combination of md simulations with two-state kinetic rate modeling
+  elucidates the chain melting transition of phospholipid bilayers for
+  different hydration levels.
+\newblock \emph{The Journal of Physical Chemistry B}, 119\penalty0
+  (44):\penalty0 14157--14165, 2015.
+\newblock \doi{10.1021/acs.jpcb.5b05501}.
+\newblock URL \url{https://doi.org/10.1021/acs.jpcb.5b05501}.
+
+\bibitem[{Emilia Krok, Henri G. Franquelim, Madhurima Chattopadhyay, Hanna
+  Orlikowska-Rzeznik, Petra Schwille \& Lukasz Piatkowski}(2024)]{krok2024}
+{Emilia Krok, Henri G. Franquelim, Madhurima Chattopadhyay, Hanna
+  Orlikowska-Rzeznik, Petra Schwille \& Lukasz Piatkowski}.
+\newblock Nanoscale structural response of biomimetic cell membranes to
+  controlled dehydration.
+\newblock \emph{Nanoscale}, 16\penalty0 (1):\penalty0 72--83, 2024.
+\newblock \doi{10.1039/D3NR03078D}.
+\newblock URL \url{https://doi.org/10.1039/D3NR03078D}.
+
+\bibitem[{Rainer A. B{\"o}ckmann, Agnieszka Hac, Thomas Heimburg \& Helmut
+  Grubm{\"u}ller}(2003)]{bockmann2003}
+{Rainer A. B{\"o}ckmann, Agnieszka Hac, Thomas Heimburg \& Helmut
+  Grubm{\"u}ller}.
+\newblock Effect of sodium chloride on a lipid bilayer.
+\newblock \emph{Biophysical Journal}, 85\penalty0 (3):\penalty0 1647--1655,
+  2003.
+\newblock \doi{10.1016/S0006-3495(03)74594-9}.
+\newblock URL \url{https://pmc.ncbi.nlm.nih.gov/articles/PMC1303338/}.
+
+\bibitem[{Matti Javanainen \textit{et al.}}(2017)]{javanainen2017}
+{Matti Javanainen \textit{et al.}}
+\newblock Two cations, two mechanisms: interactions of sodium and calcium with
+  zwitterionic lipid membranes.
+\newblock \emph{Chemical Communications}, 53\penalty0 (39):\penalty0
+  5380--5383, 2017.
+\newblock \doi{10.1039/C7CC02208E}.
+\newblock URL \url{https://doi.org/10.1039/C7CC02208E}.
+
+\bibitem[{Josef Melcr \textit{et al.}}(2018)]{melcr2018}
+{Josef Melcr \textit{et al.}}
+\newblock Accurate binding of sodium and calcium to a popc bilayer by effective
+  inclusion of electronic polarization.
+\newblock \emph{The Journal of Physical Chemistry B}, 122\penalty0
+  (16):\penalty0 4546--4557, 2018.
+\newblock \doi{10.1021/acs.jpcb.7b12510}.
+\newblock URL \url{https://doi.org/10.1021/acs.jpcb.7b12510}.
+
+\bibitem[{GROMACS Development Team}(2024)]{gromacs2024}
+{GROMACS Development Team}.
+\newblock \emph{{GROMACS 2024.0 Source code documentation}}.
+\newblock GROMACS, 2024.
+\newblock URL
+  \url{https://manual.gromacs.org/documentation/2024.0/manual-2024.pdf}.
+
+\bibitem[{Wesley B. Cardoso \& Sebasti{\~a}o A. Mendanha}(2021)]{cardoso2021}
+{Wesley B. Cardoso \& Sebasti{\~a}o A. Mendanha}.
+\newblock Molecular dynamics simulation of docking structures of sars-cov-2
+  main protease and hiv protease inhibitors.
+\newblock \emph{Journal of Molecular Structure}, 1225:\penalty0 129143, 2021.
+\newblock \doi{10.1016/j.molstr.2020.129143}.
+\newblock URL \url{https://pubmed.ncbi.nlm.nih.gov/32863430/}.
+
+\bibitem[{Guilherme Colherinhas \& Wesley B. Cardoso}(2025)]{colherinhas2025}
+{Guilherme Colherinhas \& Wesley B. Cardoso}.
+\newblock Insights into antiviral candidates against oropouche virus: A
+  molecular dynamics study.
+\newblock \emph{ACS Physical Chemistry Au}, 5:\penalty0 549--559, 2025.
+\newblock \doi{10.1021/acsphyschemau.4c00000}.
+\newblock URL \url{https://pubmed.ncbi.nlm.nih.gov/41019617/}.
+
+\bibitem[Lenhard(2024)]{lenhard2024history}
+Simon \& Hasse~Hans Lenhard, Johannes \&~Stephan.
+\newblock On the history of the lennard-jones potential.
+\newblock \emph{Annalen der Physik}, 536\penalty0 (6):\penalty0 2400115, 2024.
+\newblock \doi{10.1002/andp.202400115}.
+\newblock URL
+  \url{https://onlinelibrary.wiley.com/doi/abs/10.1002/andp.202400115}.
+
+\bibitem[Peleg et~al.(2012)Peleg, Normand, \& Corradini]{peleg2012arrhenius}
+M.~Peleg, M.~D. Normand, \& M.~G. Corradini.
+\newblock The arrhenius equation revisited.
+\newblock \emph{Critical Reviews in Food Science and Nutrition}, 52\penalty0
+  (9):\penalty0 830--851, 2012.
+\newblock \doi{10.1080/10408398.2012.667460}.
+\newblock URL \url{https://doi.org/10.1080/10408398.2012.667460}.
+
+\bibitem[Hothar \& Wads{\"o}(2024)]{hothar2024accurate}
+M.~Hothar \& L.~Wads{\"o}.
+\newblock Accurate heat capacity determination of solids and liquids using a
+  heat conduction calorimeter.
+\newblock \emph{Journal of Thermal Analysis and Calorimetry}, 149:\penalty0
+  2179--2188, 2024.
+\newblock \doi{10.1007/s10973-023-12824-8}.
+\newblock URL
+  \url{https://link.springer.com/article/10.1007/s10973-023-12824-8}.
+
+\bibitem[Pedersen et~al.(2025)]{pedersen2025}
+Kasper~B. Pedersen et~al.
+\newblock The martini 3 lipidome: Expanded and refined parameters improve lipid
+  phase behavior.
+\newblock \emph{ACS Central Science}, 2025.
+\newblock \doi{10.1021/acscentsci.5c00755}.
+\newblock URL \url{https://pubs.acs.org/doi/10.1021/acscentsci.5c00755}.
+
+\bibitem[{Tsjerk A. Wassenaar \textit{et al.}}(2015)]{wassenaar2015}
+{Tsjerk A. Wassenaar \textit{et al.}}
+\newblock Computational lipidomics with insane: a versatile tool for generating
+  custom membranes for molecular dynamics.
+\newblock \emph{Journal of chemical theory and computation}, 11\penalty0
+  (5):\penalty0 2144--2155, 2015.
+\newblock URL \url{https://doi.org/10.1021/acs.jctc.5b00209}.
+
+\bibitem[Kutzner et~al.(2025)Kutzner, Mileti{\'c}, Palacio~Rodr{\'i}guez,
+  Rampp, Hummer, de~Groot, \& Grubm{\"u}ller]{kutzner2023hpc}
+Carsten Kutzner, Vedran Mileti{\'c}, Karen Palacio~Rodr{\'i}guez, Markus Rampp,
+  Gerhard Hummer, Bert~L. de~Groot, \& Helmut Grubm{\"u}ller.
+\newblock Scaling of the {GROMACS} molecular dynamics code to 65k {CPU} cores
+  on an {HPC} cluster.
+\newblock \emph{Journal of Computational Chemistry}, 46:\penalty0 e70059, 2025.
+\newblock \doi{10.1002/jcc.70059}.
+\newblock URL \url{https://pubmed.ncbi.nlm.nih.gov/39945385/}.
+
+\bibitem[{GROMACS Development Team}(2021)]{gromacs_pbc_2021}
+{GROMACS Development Team}.
+\newblock \emph{GROMACS 2021 Source code documentation: Terminology}.
+\newblock GROMACS, 2021.
+\newblock URL
+  \url{https://manual.gromacs.org/documentation/2021/user-guide/terminology.html}.
+
+\bibitem[Buchoux(2017)]{buchoux2017fatslim}
+S{\'e}bastien Buchoux.
+\newblock {FATSLIM}: a fast and robust software to analyze {MD} simulations of
+  membranes.
+\newblock \emph{Bioinformatics}, 33\penalty0 (1):\penalty0 133--134, 2017.
+\newblock \doi{10.1093/bioinformatics/btw563}.
+\newblock URL
+  \url{https://academic.oup.com/bioinformatics/article/33/1/133/2525675}.
+
+\bibitem[Spivak et~al.(2023)Spivak, Stone, Ribeiro, Saam, Freddolino, Bernardi,
+  \& Tajkhorshid]{vmd2024}
+Mariano Spivak, John~E. Stone, João Ribeiro, Jan Saam, Lydia Freddolino,
+  Rafael~C. Bernardi, \& Emad Tajkhorshid.
+\newblock Vmd as a platform for interactive small molecule preparation and
+  visualization in quantum and classical simulations.
+\newblock \emph{Journal of Chemical Information and Modeling}, 63\penalty0
+  (15):\penalty0 4664--4678, 2023.
+\newblock \doi{10.1021/acs.jcim.3c00658}.
+\newblock URL \url{https://pubs.acs.org/doi/10.1021/acs.jcim.3c00658}.
+
+\bibitem[{Kasper B. Pedersen \textit{et al.}}(2024)]{pedersen2024}
+{Kasper B. Pedersen \textit{et al.}}
+\newblock The martini 3 lipidome: Expanded and refined parameters improve lipid
+  phase behavior.
+\newblock \emph{ACS Central Science}, 11\penalty0 (9):\penalty0 1598--1610,
+  2024.
+\newblock \doi{10.1021/acscentsci.5c00755}.
+\newblock URL \url{https://doi.org/10.1021/acscentsci.5c00755}.
+
+\bibitem[{Norbert Ku{\v{c}}erka, Mu-Ping Nieh \& John
+  Katsaras}(2011)]{kucerka2011}
+{Norbert Ku{\v{c}}erka, Mu-Ping Nieh \& John Katsaras}.
+\newblock Fluid phase lipid areas and bilayer thicknesses of commonly used
+  phosphatidylcholines as a function of temperature.
+\newblock \emph{Biochimica et Biophysica Acta (BBA)-Biomembranes},
+  1808\penalty0 (11):\penalty0 2761--2771, 2011.
+\newblock \doi{10.1016/j.bbamem.2011.07.022}.
+\newblock URL \url{https://doi.org/10.1016/j.bbamem.2011.07.022}.
+
+\bibitem[Castro-Rom{\'a}n et~al.(2006)Castro-Rom{\'a}n, Benz, White, \&
+  Tobias]{hal_finitesize}
+Francisco Castro-Rom{\'a}n, Robert~W Benz, Stephen~H White, \& Douglas~J
+  Tobias.
+\newblock Investigation of finite system-size effects in molecular dynamics
+  simulations of lipid bilayers.
+\newblock \emph{The Journal of Physical Chemistry B}, 110\penalty0
+  (47):\penalty0 24157--24164, 2006.
+\newblock \doi{10.1021/jp064746g}.
+\newblock URL \url{https://pubmed.ncbi.nlm.nih.gov/17125387/}.
+
+\bibitem[{Zeke A. Piskulich \& Qiang Cui}(2022)]{piskulich2022}
+{Zeke A. Piskulich \& Qiang Cui}.
+\newblock Machine learning assisted phase transition temperatures from
+  generalized replica exchange simulations of dry martini lipid bilayers.
+\newblock \emph{The Journal of Physical Chemistry Letters}, 13\penalty0
+  (26):\penalty0 5922--5928, 2022.
+\newblock \doi{10.1021/acs.jpclett.2c01654}.
+\newblock URL \url{https://pubmed.ncbi.nlm.nih.gov/35819105/}.
+
+\bibitem[Kallner(2001)]{kallner2001uncertainty}
+Anders Kallner.
+\newblock Uncertainty in measurement: Introduction and examples from laboratory
+  medicine.
+\newblock \emph{The Journal of the International Federation of Clinical
+  Chemistry and Laboratory Medicine (eJIFCC)}, 13\penalty0 (1):\penalty0
+  16--24, 2001.
+\newblock URL \url{https://pmc.ncbi.nlm.nih.gov/articles/PMC6238384/}.
+
+\bibitem[Peccati \& Jim{\'e}nez-Os{\'e}s(2021)]{peccati2021enthalpy}
+Francesca Peccati \& Gonzalo Jim{\'e}nez-Os{\'e}s.
+\newblock Enthalpy-entropy compensation in biomolecular recognition: A
+  computational perspective.
+\newblock \emph{ACS Omega}, 6\penalty0 (17):\penalty0 11122--11130, 2021.
+\newblock \doi{10.1021/acsomega.1c00485}.
+\newblock URL \url{https://pmc.ncbi.nlm.nih.gov/articles/PMC8153931/}.
+
+\bibitem[{Anping Liu \& Xiaoyang Qi}(2012)]{liu2012}
+{Anping Liu \& Xiaoyang Qi}.
+\newblock Molecular dynamics simulations of dopc lipid bilayers: The effect of
+  lennard-jones parameters of hydrocarbon chains.
+\newblock \emph{Computational Molecular Bioscience}, 2\penalty0 (3):\penalty0
+  78--82, 2012.
+\newblock \doi{10.4236/cmb.2012.23007}.
+\newblock URL \url{https://doi.org/10.4236/cmb.2012.23007}.
+
+\bibitem[{Alexander Schlaich, Jan O. Daldrop, Bartosz Kowalik, Matej
+  Kandu\v{c}, Emanuel Schneck \& Roland R. Netz}(2024)]{ref_langmuir_2024}
+{Alexander Schlaich, Jan O. Daldrop, Bartosz Kowalik, Matej Kandu\v{c}, Emanuel
+  Schneck \& Roland R. Netz}.
+\newblock Water structuring induces nonuniversal hydration repulsion between
+  polar surfaces: Quantitative comparison between molecular simulations,
+  theory, and experiments.
+\newblock \emph{Langmuir}, 40:\penalty0 7896--7906, 2024.
+\newblock \doi{10.1021/acs.langmuir.3c03656}.
+\newblock URL \url{https://pubs.acs.org/doi/10.1021/acs.langmuir.3c03656}.
+
+\bibitem[{Hwankyu Lee, Hyungwon Moon \& Hyun-Ryoung Kim}(2022)]{lee2022}
+{Hwankyu Lee, Hyungwon Moon \& Hyun-Ryoung Kim}.
+\newblock Effects of lipid shape and interactions on the conformation,
+  dynamics, and curvature of ultrasound-responsive liposomes.
+\newblock \emph{Pharmaceutics}, 14\penalty0 (7):\penalty0 1512, 2022.
+\newblock \doi{10.3390/pharmaceutics14071512}.
+\newblock URL \url{https://pubmed.ncbi.nlm.nih.gov/35890407/}.
+
+\end{thebibliography}
